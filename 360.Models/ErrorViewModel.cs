@@ -1,4 +1,4 @@
-namespace _360Rides.Models
+namespace _360.Models
 {
     public class ErrorViewModel
     {
