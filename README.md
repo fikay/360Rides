@@ -4,13 +4,13 @@
 - **.NET Version** - 8.0
 - **Nuget Packages**
 
-`
-Microsoft.AspNetCore.Identity.EntityFrameworkCore - For Authentication
-Microsoft.AspNetCore.Identity.UI - For Authentication e.g IEmail
-Microsoft.EntityFrameworkCore - 
-Microsoft.EntityFrameworkCore.Sqlite - Database connections
-Microsoft.EntityFrameworkCore.SqlServer - Database connections
-Microsoft.EntityFrameworkCore.Tools
+`  
+Microsoft.AspNetCore.Identity.EntityFrameworkCore - For Authentication  
+Microsoft.AspNetCore.Identity.UI - For Authentication e.g IEmail  
+Microsoft.EntityFrameworkCore -   
+Microsoft.EntityFrameworkCore.Sqlite - Database connections  
+Microsoft.EntityFrameworkCore.SqlServer - Database connections  
+Microsoft.EntityFrameworkCore.Tools  
 
 `
 
