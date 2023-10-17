@@ -6,10 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using _360.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -23,6 +25,7 @@ namespace _360Rides.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IUserStore<IdentityUser> _userStore;
@@ -35,7 +38,8 @@ namespace _360Rides.Areas.Identity.Pages.Account
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IHttpClientFactory httpClientFactory)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -43,6 +47,7 @@ namespace _360Rides.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _httpClientFactory = httpClientFactory;
         }
 
         /// <summary>
@@ -70,6 +75,38 @@ namespace _360Rides.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+
+            /// <summary>
+            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+            ///     directly from your code. This API may change or be removed in future releases.
+            /// </summary>
+            [Required]
+            [StringLength(100, MinimumLength = 2)]
+            public string Name { get; set; }
+
+
+
+            [Required]
+            [Display(Name = "Home Address")]
+            public string HomeAddress { get; set; }
+
+            [Required]
+            public string State { get; set; }
+
+            [Required]
+            public string City { get; set; }
+            [Required]
+            [RegularExpression(@"^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$", ErrorMessage = "Postal Code must match format xxx xxx")]
+            [Display(Name = "Postal Code")]
+            public string PostalCode { get; set; }
+
+            [Required]
+            [RegularExpression(@"^\d{3}-\d{3}-\d{4}$", ErrorMessage = "Phone Number must match format xxx-xxx-xxxx")]
+            public string PhoneNumber { get; set; }
+
+
+
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -154,11 +191,11 @@ namespace _360Rides.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {
@@ -176,5 +213,27 @@ namespace _360Rides.Areas.Identity.Pages.Account
             }
             return (IUserEmailStore<IdentityUser>)_userStore;
         }
+
+        #region API CALLS
+        //[HttpGet]
+        //public async Task<IActionResult> GetPlaces(string query)
+        //{
+        //    var apiKey = "AIzaSyDufLHADPDKKDfoZgWisfD_ZsoFNFJBK-g";
+        //    var apiUrl = $"https://maps.googleapis.com/maps/api/place/textsearch/json?query={query}&key={apiKey}";
+
+        //    var client = _httpClientFactory.CreateClient();
+
+        //    var response = await client.GetAsync(apiUrl);
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var content = await response.Content.ReadAsStringAsync();
+        //        return Content(content, "application/json");
+        //    }
+
+        //    return StatusCode((int)response.StatusCode);
+        //}
+
+        #endregion
     }
 }
