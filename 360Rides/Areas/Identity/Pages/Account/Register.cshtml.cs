@@ -12,6 +12,7 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using _360.Models;
+using _360.Utility;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -151,9 +152,20 @@ namespace _360Rides.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+               
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                //Add new fields to the User
+                user.Name = Input.Name;
+                user.PhoneNumber = Input.PhoneNumber;
+                user.HomeAddress = Input.HomeAddress;
+                user.City = Input.City;
+                user.State = Input.State;
+                user.PostalCode = Input.PostalCode;
+                
+                // Create User and add user to Customer Role 
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                _userManager.AddToRoleAsync(user, SD.Role_Customer).GetAwaiter().GetResult();
 
                 if (result.Succeeded)
                 {
