@@ -215,24 +215,7 @@ namespace _360Rides.Areas.Identity.Pages.Account
         }
 
         #region API CALLS
-        //[HttpGet]
-        //public async Task<IActionResult> GetPlaces(string query)
-        //{
-        //    var apiKey = "AIzaSyDufLHADPDKKDfoZgWisfD_ZsoFNFJBK-g";
-        //    var apiUrl = $"https://maps.googleapis.com/maps/api/place/textsearch/json?query={query}&key={apiKey}";
-
-        //    var client = _httpClientFactory.CreateClient();
-
-        //    var response = await client.GetAsync(apiUrl);
-
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var content = await response.Content.ReadAsStringAsync();
-        //        return Content(content, "application/json");
-        //    }
-
-        //    return StatusCode((int)response.StatusCode);
-        //}
+       
 
         #endregion
     }
