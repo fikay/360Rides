@@ -10,8 +10,8 @@
     @RenderSection("Styles", required: false)
 
 </head>
-<body>
-    <header class="header">
+<body class ="d-flex flex-column">
+    <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid grid gap-3">
                 <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index"><img src="~/image/360ridenb.png" class="logo" alt="Example Image"></a>
@@ -39,7 +39,7 @@
         </main>
     </div>
 
-    <footer class="border-end footer text-muted">
+    <footer class="mt-auto border-end footer text-muted">
         <div class="container">
             &copy; 2023 - 360Rides - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

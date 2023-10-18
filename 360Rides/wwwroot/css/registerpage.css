@@ -15,8 +15,6 @@ button{
     align-content:right;
 }
 
-.sideimage {
-    max-width: 100%;
-    height: auto;
-    display: inline;
+.image-fluid{
+    align-content:space-between;
 }
