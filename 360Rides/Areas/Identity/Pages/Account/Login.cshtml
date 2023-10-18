@@ -7,7 +7,7 @@
 
 <h1>@ViewData["Title"]</h1>
 <div class="row">
-    <div class="row justify-content-center align-items-center" style="height: 80vh;">
+    <div class="row">
     <div class="col-md-5">
         <section>
                 <form class="mx-auto" id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" id="account" method="post">
@@ -35,24 +35,24 @@
                 <div>
                     <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-danger">Log in</button>
                         <p style="display: inline-block;">Don't have an account? </p>
-                        <a class="linkc" asp-area="Identity" asp-controller="Account" asp-action="Register" style="display: inline-block;">Sign up</a>
+                        <a class="link" asp-area="Identity" asp-controller="Account" asp-action="Register" style="display: inline-block;">Sign up</a>
                 </div>
                 <div>
                     <p>
-                        <a class="linkc" id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        <a class="link" id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
                     </p>
                     <p>
-                            <a class="linkc"  asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                            <a class="link"  asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
                     </p>
                     <p>
-                            <a class="linkc" id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                            <a class="link" id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
                     </p>
                 </div>
             </form>
         </section>
     </div>
 
-        <div class="col-md-4 offset-md-3">
+        <div class="col-md-1 offset-md-3">
             <img src="~/image/360ridenb.png" alt="image" class="img-fluid sideimage">
         </div>
 

@@ -7,7 +7,7 @@
 <h1>@ViewData["Title"]</h1>
 
 <div class="row">
-    <div class="row justify-content-center align-items-center" style="height: 80vh;">
+    <div class="row">
     <div class="col-md-5">
         <form class="mx-auto" id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h2>Create a new account.</h2>
@@ -72,7 +72,7 @@
             <br />
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-danger">Register</button>
                 <p style="display: inline-block;">Already have an account? </p>
-                <a class="linkc" asp-area="Identity" asp-controller="Account" asp-action="Login" style="display: inline-block;">Log in</a>
+                <a class="link" asp-area="Identity" asp-controller="Account" asp-action="Login" style="display: inline-block;">Log in</a>
             <br />
                 <Center>
                     <blockquote>OR</blockquote>
@@ -80,10 +80,17 @@
             <br />
         </form>
     </div>
-        <div class="col-md-4 offset-md-3">
+        <div class="col-md-1 offset-md-3">
             <img src="~/image/360ridenb.png" alt="image" class="img-fluid sideimage">
         </div>
 
+       
+
+        
+
+    </div>
+    
+    <div class="col-md-6 col-md-offset-2">
         <section>
             <h3>Use another service to register.</h3>
             <hr />
@@ -114,13 +121,6 @@
                 }
             }
         </section>
-
-        
-
-    </div>
-    
-    <div class="col-md-6">
-        
         
     </div>
 </div>
