@@ -1,0 +1,22 @@
+﻿body {
+  
+}
+
+
+.linkc {
+    color: red;
+}
+
+button{
+    color: red;
+}
+
+.clearfix{
+    align-content:right;
+}
+
+.sideimage {
+    max-width: 100%;
+    height: auto;
+    display: inline;
+}

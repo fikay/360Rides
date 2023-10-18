@@ -38,6 +38,8 @@ app.MapRazorPages();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseStaticFiles();
+
 
 //SeedDatabase();
 app.MapControllerRoute(

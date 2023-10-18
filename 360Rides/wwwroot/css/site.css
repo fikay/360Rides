@@ -1,9 +1,42 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+}
+
+.header{
+    margin:3px
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin:15px;
+}
+
+.increased-space{
+    margin-right: 20px;
+}
+
+.linkc{
+    color: red;
+}
+
+nav-link text-dark{
+    padding-left: 2em;
+
+}
+
+
+.click{
+    color:red;
+}
+
+footer{
+    margin-block-end:inherit;
+    background-color:black;
 }
 
 @media (min-width: 768px) {
-  html {
+    html {
     font-size: 16px;
   }
 }
