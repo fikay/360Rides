@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _360.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using _360.DataAccess.Data;
 namespace _360.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231019043112_updateservicemodel")]
+    partial class updateservicemodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -253,6 +256,7 @@ namespace _360.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -274,7 +278,7 @@ namespace _360.DataAccess.Migrations
                             ServiceDescription = "Schedule dates for pickup for your children and we will be there to pick them Up",
                             ServiceName = "Child Pickup",
                             UpdatedBy = "Fikayo",
-                            UpdatedDate = new DateTime(2023, 10, 18, 22, 45, 7, 696, DateTimeKind.Local).AddTicks(334),
+                            UpdatedDate = new DateTime(2023, 10, 18, 22, 31, 10, 841, DateTimeKind.Local).AddTicks(6434),
                             priceperkm = 0
                         });
                 });

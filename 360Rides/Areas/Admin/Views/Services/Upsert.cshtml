@@ -1,0 +1,54 @@
+﻿@model ServicesModel
+
+<div class="container text-center">
+    <div class="row">
+        <div style="display:flex" class="col-md-12 align-items-end justify-content-end">
+            <a class="col-2 btn btn-primary"  asp-area = "Admin" asp-controller="Services" asp-action="Index"> Back to Services</a>
+        </div>
+        <div class="col-12 border my-4"> 
+            <div>
+                
+                    @if(Model.Id != 0)
+                    {
+                    <h1>Edit Services</h1>
+                }
+                else
+                {
+                    <h1>Create New Service</h1>
+                }
+
+            </div>
+            <form method="post" class="my-4">              
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <input asp-for="Id" hidden />
+                <input asp-for="CreatedBy" hidden />
+                <input asp-for="UpdatedBy" hidden />
+                <input asp-for="UpdatedDate" hidden />
+                <input asp-for="CreatedDate" hidden />
+                <div class="form-floating mb-3">
+                    <input asp-for="ServiceName" class="form-control" autocomplete="servicename" aria-required="true"  />
+                    <label asp-for="ServiceName">Service Name</label>
+                    <span asp-validation-for="ServiceName" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea asp-for="ServiceDescription" class="form-control" autocomplete="Description" aria-required="true"></textarea> 
+                    <label asp-for="ServiceDescription">Description</label>
+                    <span asp-validation-for="ServiceDescription" class="text-danger"></span>
+                </div>
+                <div  class="form-floating mb-3  ">
+                    <input type="number" asp-for="priceperkm" class="form-control" aria-required="true"  />
+                    <label class="mx-2" asp-for="priceperkm">Price/KM</label>
+                    <span asp-validation-for="priceperkm" class="text-danger"></span>
+                </div>
+
+               
+                  <button class="col-2 btn btn-primary"  asp-area = "Admin" asp-controller="Services" asp-action="upsert"> Submit</button>
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+                }

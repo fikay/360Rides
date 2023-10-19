@@ -5,6 +5,8 @@ using _360.DataAccess.DbInitializer;
 using _360.Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Razor;
+using _360.DataAccess.Repository.Irepository;
+using _360.DataAccess.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
@@ -18,6 +20,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkSto
 //Required to map razor pages
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IUnitofWorkRepository, UnitofWork>();
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddHttpClient();
 
