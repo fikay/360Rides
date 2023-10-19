@@ -1,8 +1,17 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿
+@model List<ServicesModel>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class=" row text-center justify-content-evenly">
+    @foreach(var service in Model)
+    {
+        <div class="card col-4 mx-2 my-2" style="width: 18rem;">
+            <img src="~/Images/bus.jpg" class="card-img-top my-2 rounded" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@service.ServiceName</h5>
+                <p class="card-text">@service.ServiceDescription</p>
+                <a asp-area="customer" asp-controller="Home" asp-action="Details" asp-route-id = "@service.Id" class="btn btn-primary">Fill Form</a>
+            </div>
+        </div>
+    }
+
 </div>
