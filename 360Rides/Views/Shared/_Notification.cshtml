@@ -6,18 +6,26 @@
 
 @if (TempData["success"] != null)
 {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script type="text/javascript">
-        toastr.success('@TempData["success"]');
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core@5.2.0/dist/PNotify.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core/dist/BrightTheme.css" rel="stylesheet" />
+    <script>
+        PNotify.success({
+            title: 'Success!',
+            text: '@Html.Raw(TempData["Success"])'
+        });
     </script>
    
 }
 @if(TempData["Error"] != null)
 {
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript">
-        toastr.error('@TempData["error"]');
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core@5.2.0/dist/PNotify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core/dist/BrightTheme.css" rel="stylesheet" />
+    <script>
+        PNotify.error({
+            title: 'Error!',
+            text: '@Html.Raw(TempData["Error"])'
+        });
     </script>
 }

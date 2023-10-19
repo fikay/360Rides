@@ -1,0 +1,36 @@
+﻿
+
+
+
+<div class="row">
+    <div style="display:flex" class="col-12 align-items-end justify-content-end my-3">
+        <a class="btn btn-primary" asp-area="admin" asp-controller="Services" asp-action="upsert">Add New Service</a>
+    </div>
+    <table id="myTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Service Name</th>
+                <th>Updated By</th>
+                <th>Created By</th>
+                <th>Updated Date</th>
+                <th>Price/KM</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+@section Scripts{
+    <script src="~/js/services.js"></script>
+}

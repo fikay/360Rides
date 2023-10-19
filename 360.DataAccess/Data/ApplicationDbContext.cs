@@ -17,9 +17,23 @@ namespace _360.DataAccess.Data
         }
 
        public  DbSet<ApplicationUser> applicationUsers { get; set; }
+        public DbSet<ServicesModel> services { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<ServicesModel>().HasData(new ServicesModel
+            {
+                Id = 1,
+                ServiceName = "Child Pickup",
+                ServiceDescription = "Schedule dates for pickup for your children and we will be there to pick them Up",
+                UpdatedBy = "Fikayo",
+                UpdatedDate = DateTime.Now,
+                CreatedBy = "Fikayo"
+            });
+
+
+
         }
     }
 }
