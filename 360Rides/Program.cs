@@ -18,7 +18,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkSto
 //Required to map razor pages
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
-//builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddHttpClient();
 
 var app = builder.Build();
@@ -41,7 +41,7 @@ app.UseAuthorization();
 app.UseStaticFiles();
 
 
-//SeedDatabase();
+SeedDatabase();
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
