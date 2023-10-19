@@ -1,12 +1,55 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+header{
+    font-family: 'Sitka Subheading';
 }
+
+/*.navbar .nav-item .nav-link:hover {
+    color: blue;
+}*/
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin:15px;
+}
+
+.increased-space{
+    margin-right: 20px;
+}
+
+.link {
+    color: red;
+}
+
+nav-link text-dark{
+    padding-left: 2em;
+
+}
+
+
+.click{
+    color:red;
+}
+
+footer {
+    position: absolute;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    height:auto;
+    padding: 10px;
+    background-color: white;
+    color: black;
+}
+
+    @media (min-width: 768px) {
+        html {
+            font-size: 16px;
+        }
+    }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;

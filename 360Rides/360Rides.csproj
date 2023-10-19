@@ -21,6 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
+
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="wwwroot\image\" />
+  </ItemGroup>
+
+  <ItemGroup>
+
     <ProjectReference Include="..\360.DataAccess\360.DataAccess.csproj" />
     <ProjectReference Include="..\360.Models\360.Models.csproj" />
     <ProjectReference Include="..\360.Utility\360.Utility.csproj" />

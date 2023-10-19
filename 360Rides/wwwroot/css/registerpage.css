@@ -1,0 +1,20 @@
+﻿body {
+  
+}
+
+
+.link {
+    color: red;
+}
+
+button{
+    color: red;
+}
+
+.clearfix{
+    align-content:right;
+}
+
+.image-fluid{
+    align-content:space-between;
+}

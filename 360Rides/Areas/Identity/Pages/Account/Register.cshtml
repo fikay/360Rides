@@ -1,48 +1,44 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "";
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <div class="row">
+    <div class="col-md-5">
+        <form class="mx-auto" id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h2>Create a new account.</h2>
-            <hr />
+            <br />
+            <br />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                    <input asp-for="Input.Name" class="form-control" autocomplete="name" aria-required="true" placeholder="name" />
+                    <label asp-for="Input.Name">Name</label>
+                    <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                 <label asp-for="Input.Email">Email</label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Name" class="form-control" autocomplete="name" aria-required="true"  />
-                <label asp-for="Input.Name">Name</label>
-                <span asp-validation-for="Input.Name" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div id="Phone" class="form-floating mb-3  ">
-                <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true" placeholder="Phone Number" />
+            
+            
+            <div id="Phone" class="form-floating mb-3">
+                <input asp-for="Input.PhoneNumber" class="form-control" autocomplete="phone number" aria-required="true" placeholder="Phone Number" />
                 <label class="mx-2" asp-for="Input.PhoneNumber">Phone Number</label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3 ">
+            <div class="form-floating mb-3">
                 <input id="searchInput" asp-for="Input.HomeAddress" class="form-control" autocomplete="street address" aria-required="true" placeholder="Street Address" />
                 <ul id="placesList"></ul>
                 <label class="mx-2" asp-for="Input.HomeAddress">Address</label>
                 <span asp-validation-for="Input.HomeAddress" class="text-danger"></span>
             </div>
+
+
             <div class=" row form-floating mb-3">
                
                 <div class="form-floating mb-3 col-md-4">
@@ -61,9 +57,37 @@
                     <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
                 </div>
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.Password">Password</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+
+            <br />
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-danger">Register</button>
+                <p style="display: inline-block;">Already have an account? </p>
+                <a class="link" asp-area="Identity" asp-controller="Account" asp-action="Login" style="display: inline-block;">Log in</a>
+            <br />
+            <br />
         </form>
+            
+
     </div>
+        <div class="col-md-5 col-sm-5 offset-md-2 d-flex"> 
+            <div class="mt-5 align-self-center">
+                <img src="~/image/360ridenb.png" alt="image" class="img-fluid sideimage">
+            </div>
+                
+        </div>
+
+    </div>
+   
     <div class="col-md-6 col-md-offset-2">
         <section>
             <h3>Use another service to register.</h3>
@@ -73,8 +97,10 @@
                 {
                     <div>
                         <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
+                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
+                                article
+                                about setting up this ASP.NET application to support logging in via external services
+                            </a>.
                         </p>
                     </div>
                 }
@@ -93,6 +119,7 @@
                 }
             }
         </section>
+        
     </div>
 </div>
 
@@ -115,3 +142,7 @@
         });
     </script> *@
 }
+
+        @section Styles{
+            <style src="~/css/registerpage.css"></style>
+        }
