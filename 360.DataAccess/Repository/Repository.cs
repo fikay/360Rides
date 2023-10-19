@@ -43,7 +43,7 @@ namespace _360.DataAccess.Repository
                 queryable = dbSet.AsNoTracking();
             }
 
-            queryable.Where(filter);
+           queryable =  queryable.Where(filter);
             if (!string.IsNullOrEmpty(includeProperties))
             {
                 foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))

@@ -7,12 +7,8 @@
 @if (TempData["success"] != null)
 {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core@5.2.0/dist/PNotify.min.css"/>
-   @*  <link href="node_modules/@Html.Raw("@")pnotify/core/dist/Material.css"
-          rel="stylesheet"
-          type="text/css" />
-    <link rel="stylesheet"
-          href="node_modules/material-design-icons/iconfont/material-icons.css" /> *@
     <script src="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core/dist/BrightTheme.css" rel="stylesheet" />
     <script>
         PNotify.success({
             title: 'Success!',
@@ -25,9 +21,10 @@
 {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core@5.2.0/dist/PNotify.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core/dist/BrightTheme.css" rel="stylesheet" />
     <script>
         PNotify.error({
-            title: 'Success!',
+            title: 'Error!',
             text: '@Html.Raw(TempData["Error"])'
         });
     </script>

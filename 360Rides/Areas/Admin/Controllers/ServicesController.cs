@@ -88,7 +88,7 @@ namespace _360Rides.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
+      
         #region API Calls
         public IActionResult GetAll()
         {
@@ -96,6 +96,27 @@ namespace _360Rides.Areas.Admin.Controllers
             return Json(new { services });
         }
 
+        public IActionResult deleteservice(int id)
+        {
+            if (id == 0)
+            {
+                TempData["Error"] = "Service Not Found";
+                return NotFound();
+
+            }
+            else
+            {
+                var service = _unitOfWork.ServicesRepository.Get(x => x.Id == id);
+                if(service == null)
+                {
+                    return NotFound();
+                }
+                _unitOfWork.ServicesRepository.Delete(service);
+                _unitOfWork.save();
+            }
+
+            return Json(new {success = true, message = "Delete Successful"});
+        }
 
         #endregion
 
