@@ -58,6 +58,17 @@ This is still throwing errors with the registration page in regards to the IEmai
 
 
 ## Integrating PNotify our alert system
-`<script src="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core@5.2.0/dist/PNotify.min.js"></script>`
+```
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core@5.2.0/dist/PNotify.min.css" />
+<link href="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core/dist/BrightTheme.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/pnotify@5.2.0/dist/PNotify.css" />
+<link href="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/confirm@5.2.0/dist/PNotifyConfirm.min.css" rel="stylesheet">
 
+
+ <script src="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/confirm@5.2.0/dist/PNotifyConfirm.min.js"></script>
+
+``` 
+
+[JsDelivr](https://www.jsdelivr.com/package/npm/@pnotify/confirm) was essential in providing the CDN for the PNotify  
 The HTML.Raw was used to escape the @ character from being rendered as a server side variable.
