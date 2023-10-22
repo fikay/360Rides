@@ -34,13 +34,22 @@ namespace _360Rides.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             List<ServicesModel> listOfServices = _unitOfWork.ServicesRepository.GetAllAsync().GetAwaiter().GetResult().ToList();
+            if(claim != null)
+            {
+                HttpContext.Session.SetInt32(SD.SessionName, _unitOfWork.RequestRepository.GetAllAsync(x => x.UserId == claim.Value).GetAwaiter().GetResult().Count());
+            }
+            
             return View( listOfServices);
         }
 
         [Authorize(Roles = SD.Role_Customer + "," + SD.Role_Admin + "," + SD.Role_Employee)]
         public  IActionResult Details(int product)
         {
+            // Get ASPUSER ID and ServiceChosen 
+            // Find the User and set the service Id And User Id to the respective field in service request
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             var serviceChosen = _unitOfWork.ServicesRepository.GetAsync( filter:x => x.Id == product).GetAwaiter().GetResult();
@@ -49,26 +58,43 @@ namespace _360Rides.Areas.Customer.Controllers
                 ServiceId = serviceChosen.Id,      
                 UserId = user.Id,
             };
+            // Check if the User has Kids in our DB and send list to the Viewbag
+            var children = _unitOfWork.ChildrenRepository.GetAllAsync(x => x.UserId == userId).GetAwaiter().GetResult();
+            if(children != null)
+            {
+                List<string> childNames = new List<string>();
+                foreach (var child in children)
+                {
+                    childNames.Add(child.Name);
+                    // Do something with the 'childName' variable, such as printing it or using it in your logic
+                }
+                ViewBag.Children = childNames;
+            }
+           
             ViewBag.Title = serviceChosen.ServiceName;
+
             return View(request);
         }
         [HttpPost]
         public  IActionResult Details(ServiceRequest request)
         {
-          
+            var user = _db.Users.FirstOrDefault(x => x.Id == request.UserId);
             foreach (var child in request.childrenNames)
             {
-                var user = _db.Users.FirstOrDefault(x => x.Id == request.UserId);
-                child.UserId = user.Id;
+                    child.UserId = user.Id;
+              //if (!_unitOfWork.ChildrenRepository.FindAsync(x => x.Name == child.Name ).GetAwaiter().GetResult())
+              //  {
+              //      _unitOfWork.ChildrenRepository.AddAsync(child).GetAwaiter().GetResult();
+              //  }
             }
             if (ModelState.IsValid)
             {
-                var request1 = request; 
                 _unitOfWork.ChildrenRepository.AddRangeAsync(request.childrenNames).GetAwaiter().GetResult();
-                //_unitOfWork.save();
                 _unitOfWork.RequestRepository.AddAsync(request).GetAwaiter().GetResult();
                 _unitOfWork.save();
+                //_unitOfWork.save();
             }
+            HttpContext.Session.SetInt32(SD.SessionName, _unitOfWork.RequestRepository.GetAllAsync(x => x.UserId == user.Id).GetAwaiter().GetResult().Count());
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Privacy()
@@ -92,6 +118,7 @@ namespace _360Rides.Areas.Customer.Controllers
             // Round up to 1 decimal place (9.7 km)
             double roundedKilometers = Math.Round(kilometers * 10) / 10;
             var priceperday = (fee * roundedKilometers) + flatRate;
+            priceperday = priceperday * 2;
 
             return Json(new { price = priceperday  });
         }

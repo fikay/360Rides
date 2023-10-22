@@ -23,6 +23,8 @@ namespace _360.DataAccess.Repository.Irepository
 
         Task AddRangeAsync(IEnumerable<T> items);
 
+        Task <bool> FindAsync(Expression<Func<T, bool>>? filter = null);
+
         // An object of type T will be deleted from the table.
         // Parameters: Variable of type T
         void Delete(T item);

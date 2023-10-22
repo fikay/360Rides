@@ -14,5 +14,7 @@ namespace _360.Utility
         public const string Role_Admin = "admin";
         public const string Role_Employee = "Employee";
 
+
+        public const string SessionName = "360Rides";
     }
 }

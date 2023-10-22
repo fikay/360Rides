@@ -80,5 +80,17 @@ namespace _360.DataAccess.Repository
 
             return queryable.ToList();
         }
+
+        public Task<bool> FindAsync(Expression<Func<T, bool>>? filter = null)
+        {
+            var flag = false;
+            IQueryable<T> queryable = dbSet;
+            if(queryable.Where(filter) != null)
+            {
+                flag = true;
+                return Task.FromResult(flag);
+            }
+          return Task.FromResult(flag);
+        }
     }
 }
