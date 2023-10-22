@@ -22,8 +22,9 @@ namespace _360.Models
         public string? UpdatedBy { get; set; }
         [ValidateNever]
         public string?CreatedBy { get; set; }
+        [ValidateNever]
         public DateTime CreatedDate { get; set; }
-
+        [ValidateNever]
         public DateTime UpdatedDate { get; set; }
 
         [Display(Name ="Price/KM")]

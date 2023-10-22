@@ -12,12 +12,16 @@ namespace _360.DataAccess.Repository
     {
         private readonly ApplicationDbContext _db;
 
-        public IServicesRepository ServicesRepository {  get; set; }
+        public IServicesRepository ServicesRepository {  get; private  set; }
+        public IChildrenRepository ChildrenRepository { get; private set; }
+        public IServiceRequestRepository RequestRepository { get; private set; }
 
         public UnitofWork (ApplicationDbContext db)
         {
             _db = db;
             ServicesRepository = new ServicesRepository(_db);
+            ChildrenRepository  = new ChildrenNameRepository(_db);
+            RequestRepository = new ServiceRequestRepository(_db);
         }
 
         public void save()
