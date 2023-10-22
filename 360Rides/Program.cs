@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Razor;
 using _360.DataAccess.Repository.Irepository;
 using _360.DataAccess.Repository;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
@@ -15,6 +16,7 @@ IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettin
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.Configure<GoogleSettings>(builder.Configuration.GetSection("GoogleApi"));
 
 //builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
@@ -35,9 +37,11 @@ builder.Services.AddSession(options =>
 });
 //Required to map razor pages
 builder.Services.AddRazorPages();
+//AddScoped Variables
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IUnitofWorkRepository, UnitofWork>();
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+
 builder.Services.AddHttpClient();
 
 var app = builder.Build();

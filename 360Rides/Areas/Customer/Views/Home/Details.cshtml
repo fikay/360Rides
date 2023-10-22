@@ -1,7 +1,5 @@
 ﻿@model  ServiceRequest
-@{
-    
-}  
+@inject IOptions<GoogleSettings> MySettingsOptions
 @if (!User.IsInRole(SD.Role_Employee) && !User.IsInRole(SD.Role_Customer) && !User.IsInRole(SD.Role_Admin))
  {
             <h1> you have to be signed in to send in a request</h1>
@@ -111,6 +109,7 @@
 @section Scripts{
     <partial name="_ValidationScriptsPartial"></partial>
     <script src="~/js/serviceRequest.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=@MySettingsOptions.Value.ApiKey&libraries=places&callback=initMap" async defer"></script>
     <script>
         $(document).ready(function () {
             var childIndex = 0;
