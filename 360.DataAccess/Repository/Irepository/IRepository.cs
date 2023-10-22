@@ -11,15 +11,19 @@ namespace _360.DataAccess.Repository.Irepository
     {
         // A list of object of type T will be returned.
         // Parameters(optional): LINQ Expression, includefromotherTables, tracking
-        IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties =null);
+        Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties =null);
 
         // An object of type T will be returned.
         // Parameters(optional): LINQ Expression, includefromotherTables, tracking
-        T Get(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, bool tracked = false);
+        Task<T> GetAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, bool tracked = false);
 
         // An object of type T will be added to the table.
         // Parameters: Variable of type T
-        void Add(T item);
+        Task AddAsync(T item);
+
+        Task AddRangeAsync(IEnumerable<T> items);
+
+        Task <bool> FindAsync(Expression<Func<T, bool>>? filter = null);
 
         // An object of type T will be deleted from the table.
         // Parameters: Variable of type T

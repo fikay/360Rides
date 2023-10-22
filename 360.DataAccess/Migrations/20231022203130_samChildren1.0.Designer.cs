@@ -12,8 +12,8 @@ using _360.DataAccess.Data;
 namespace _360.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231018102607_AddServices")]
-    partial class AddServices
+    [Migration("20231022203130_samChildren1.0")]
+    partial class samChildren10
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -232,6 +232,82 @@ namespace _360.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("_360.Models.ChildrenName", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ServiceRequestId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceRequestId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ChildrenNames");
+                });
+
+            modelBuilder.Entity("_360.Models.ServiceRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DropOffLocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PickUpLocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("additionalComments")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("childrenNumber")
+                        .HasColumnType("int");
+
+                    b.Property<double>("price")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("serviceRequests");
+                });
+
             modelBuilder.Entity("_360.Models.ServicesModel", b =>
                 {
                     b.Property<int>("Id")
@@ -239,6 +315,12 @@ namespace _360.DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ServiceDescription")
                         .IsRequired()
@@ -249,11 +331,13 @@ namespace _360.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("priceperkm")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -263,10 +347,13 @@ namespace _360.DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            CreatedBy = "Fikayo",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ServiceDescription = "Schedule dates for pickup for your children and we will be there to pick them Up",
                             ServiceName = "Child Pickup",
                             UpdatedBy = "Fikayo",
-                            UpdatedDate = new DateTime(2023, 10, 18, 4, 26, 4, 808, DateTimeKind.Local).AddTicks(8633)
+                            UpdatedDate = new DateTime(2023, 10, 22, 14, 31, 30, 42, DateTimeKind.Local).AddTicks(2802),
+                            priceperkm = 0
                         });
                 });
 
@@ -346,6 +433,45 @@ namespace _360.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("_360.Models.ChildrenName", b =>
+                {
+                    b.HasOne("_360.Models.ServiceRequest", null)
+                        .WithMany("childrenNames")
+                        .HasForeignKey("ServiceRequestId");
+
+                    b.HasOne("_360.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("_360.Models.ServiceRequest", b =>
+                {
+                    b.HasOne("_360.Models.ServicesModel", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("_360.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Service");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("_360.Models.ServiceRequest", b =>
+                {
+                    b.Navigation("childrenNames");
                 });
 #pragma warning restore 612, 618
         }

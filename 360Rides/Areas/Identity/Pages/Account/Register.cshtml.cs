@@ -165,11 +165,12 @@ namespace _360Rides.Areas.Identity.Pages.Account
                 
                 // Create User and add user to Customer Role 
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                _userManager.AddToRoleAsync(user, SD.Role_Customer).GetAwaiter().GetResult();
+               
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+                    _userManager.AddToRoleAsync(user, SD.Role_Customer).GetAwaiter().GetResult();
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

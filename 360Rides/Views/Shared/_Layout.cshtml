@@ -6,12 +6,9 @@
     <title>@ViewData["Title"] - 360Rides</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
     @* <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" /> *@
     @RenderSection("Styles", required: false)
-
-
-
+    @* @inject IOptions<GoogleSettings> MySettingsOptions *@
    @*  API LINKS
     <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
@@ -19,13 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core/dist/BrightTheme.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/pnotify@5.2.0/dist/PNotify.css" />
     <link href="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/confirm@5.2.0/dist/PNotifyConfirm.min.css" rel="stylesheet">
-   
-   
-
-  
-
-  
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body class ="d-flex flex-column">
     <header>
@@ -39,12 +30,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-
                             <a class="nav-link text-dark  " asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark increased-space" asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
-
                         </li>
                         @if(User.IsInRole(SD.Role_Admin))
                         {
@@ -61,6 +50,7 @@
                         }
                     </ul>
                 </div>
+                <a class="nav-link text-dark increased-space" asp-area="Customer" asp-controller="Cart" asp-action="Index"> @await Component.InvokeAsync("ShoppingCart")</a>
                 <partial name="_LoginPartial" class="d-none d-sm-flex align-items-center justify-content-end"/>
             </div>
         </nav>
@@ -82,11 +72,14 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/serviceRequest.js" asp-append-version="true"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
    @*  API SCRIPTS *@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core@5.2.0/dist/PNotify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/confirm@5.2.0/dist/PNotifyConfirm.min.js"></script>
+    @* <script src="https://maps.googleapis.com/maps/api/js?key=@MySettingsOptions.Value.ApiKey&libraries=places&callback=initMap" async defer"></script> *@
+
     
 
    

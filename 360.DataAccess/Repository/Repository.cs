@@ -21,9 +21,9 @@ namespace _360.DataAccess.Repository
             _db = db;
             this.dbSet = _db.Set<T>();
         }
-        public void Add(T item)
+        public async Task AddAsync(T item)
         {
-            this.dbSet.Add(item);   
+            dbSet.Add(item);   
         }
 
         public void Delete(T item)
@@ -31,7 +31,14 @@ namespace _360.DataAccess.Repository
             dbSet.Remove(item);
         }
 
-        public T Get(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, bool tracked = false)
+        public async Task AddRangeAsync(IEnumerable<T> items)
+        {
+            foreach (var item in items)
+            {
+                dbSet.Add(item);
+            }
+        }
+        public async Task<T> GetAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, bool tracked = false)
         {
             IQueryable<T> queryable;
             if(tracked)
@@ -55,7 +62,7 @@ namespace _360.DataAccess.Repository
             return queryable.FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
             IQueryable<T> queryable = dbSet;
             if (filter != null)
@@ -72,6 +79,18 @@ namespace _360.DataAccess.Repository
             }
 
             return queryable.ToList();
+        }
+
+        public Task<bool> FindAsync(Expression<Func<T, bool>>? filter = null)
+        {
+            var flag = false;
+            IQueryable<T> queryable = dbSet;
+            if(queryable.Where(filter) != null)
+            {
+                flag = true;
+                return Task.FromResult(flag);
+            }
+          return Task.FromResult(flag);
         }
     }
 }
