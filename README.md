@@ -4,7 +4,26 @@ A website to connect parents to ride services for transporting their kids to sch
 - **Environments** - Visual Studio, SQL Server Management, GitHub.
 - **.NET Version** - 8.0
 - **Nuget Packages**
+** Appsettings.json was excluded to protect my keys so include an appsettings.json file with the following format**
+  ```
+  {
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=**Your Server**;Database=360Rides;Trusted_Connection=true;TrustServerCertificate=True"
+  },
+  "GoogleApi": {
+    "ApiKey": "**Your Google API Key**"
+  }
+}
+  ```
 
+The data Migrations will be done automatically by the DBInitializer so all you have to do is set up the Default Connection.
 `  
 Microsoft.AspNetCore.Identity.EntityFrameworkCore - For Authentication  
 Microsoft.AspNetCore.Identity.UI - For Authentication e.g IEmail  
