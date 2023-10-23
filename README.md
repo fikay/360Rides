@@ -1,4 +1,5 @@
-# 360Rides - Website for 360 Business 
+# 360Rides - Website for 360 Business
+A website to connect parents to ride services for transporting their kids to school and back to school for a fixed price. Looking at the confliting schedule of work and drop off toime for school, I realized i could ease the issue of having to wake up super early to drop off the kids by creating this service where parents set up a scheduled plan with 360Rides to always pick up their kids from home and drop them back at home at a specific time
 ## Setting Up
 - **Environments** - Visual Studio, SQL Server Management, GitHub.
 - **.NET Version** - 8.0
