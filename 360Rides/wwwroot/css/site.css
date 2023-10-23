@@ -2,6 +2,10 @@ html {
     font-size: 14px;
 }
 
+body {
+    background-color:#ebebeb;
+}
+
 header{
     font-family: 'Sitka Subheading';
 }

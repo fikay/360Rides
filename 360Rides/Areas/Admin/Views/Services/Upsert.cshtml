@@ -1,5 +1,22 @@
 ﻿@model ServicesModel
 
+
+
+
+
+<div class="solid-block">
+<div class="reveal-text">
+    <div class="cover"></div>
+        <h1>
+            <u>CREATE NEW SERVICES</u>
+        </h1>
+</div>
+</div>
+
+<br />
+<br />
+
+
 <div class="container text-center">
     <div class="row">
         <div style="display:flex" class="col-md-12 align-items-end justify-content-end">
@@ -14,7 +31,7 @@
                 }
                 else
                 {
-                    <h1>Create New Service</h1>
+                    <h1></h1>
                 }
 
             </div>
@@ -41,8 +58,13 @@
                     <span asp-validation-for="priceperkm" class="text-danger"></span>
                 </div>
 
-               
-                  <button class="col-2 btn btn-primary"  asp-area = "Admin" asp-controller="Services" asp-action="upsert"> Submit</button>
+
+                <button class="col-2 learn-more" asp-area="Admin" asp-controller="Services" asp-action="upsert"> 
+                    <span class="circle" aria-hidden="true">
+                        <span class="icon arrow"></span>
+                    </span>
+                    <span class="button-text">Submit</span>
+                </button>
                 
             </form>
         </div>
@@ -52,3 +74,7 @@
 @section Scripts{
     <partial name="_ValidationScriptsPartial"></partial>
                 }
+
+
+
+                   
