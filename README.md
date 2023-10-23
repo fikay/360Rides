@@ -4,6 +4,16 @@ A website to connect parents to ride services for transporting their kids to sch
 - **Environments** - Visual Studio, SQL Server Management, GitHub.
 - **.NET Version** - 8.0
 - **Nuget Packages**
+The data Migrations will be done automatically by the DBInitializer so all you have to do is set up the Default Connection.
+`  
+Microsoft.AspNetCore.Identity.EntityFrameworkCore - For Authentication  
+Microsoft.AspNetCore.Identity.UI - For Authentication e.g IEmail  
+Microsoft.EntityFrameworkCore -   
+Microsoft.EntityFrameworkCore.Sqlite - Database connections  
+Microsoft.EntityFrameworkCore.SqlServer - Database connections  
+Microsoft.EntityFrameworkCore.Tools  
+
+`  
 ** Appsettings.json was excluded to protect my keys so include an appsettings.json file with the following format**
   ```
   {
@@ -22,17 +32,6 @@ A website to connect parents to ride services for transporting their kids to sch
   }
 }
   ```
-
-The data Migrations will be done automatically by the DBInitializer so all you have to do is set up the Default Connection.
-`  
-Microsoft.AspNetCore.Identity.EntityFrameworkCore - For Authentication  
-Microsoft.AspNetCore.Identity.UI - For Authentication e.g IEmail  
-Microsoft.EntityFrameworkCore -   
-Microsoft.EntityFrameworkCore.Sqlite - Database connections  
-Microsoft.EntityFrameworkCore.SqlServer - Database connections  
-Microsoft.EntityFrameworkCore.Tools  
-
-`
 
 ## Connecting To Database SQL Server Management
 In `appsettings.json`, I included the connectionstring:   
