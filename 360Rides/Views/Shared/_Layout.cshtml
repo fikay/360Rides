@@ -20,16 +20,14 @@
     <link href="https://cdn.jsdelivr.net/npm/pnotify@5.2.0/dist/PNotify.css" />
     <link href="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/confirm@5.2.0/dist/PNotifyConfirm.min.css" rel="stylesheet">
    
-   
-
   
 
   
 
 </head>
-<body class ="d-flex flex-column">
+<body class ="d-flex flex-column bg-white">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-5">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom-0 box-shadow mb-5">
             <div class="container-fluid grid gap-3">
                 <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index"><img src="~/image/360ridenb.png" class="logo" alt="Example Image"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -67,14 +65,28 @@
 
        
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            <partial name="_Notification" />
-          
-             
-
-             @RenderBody() 
-        </main>
+    <div @* class="container" *@>
+        @if(ViewData["Title"] != null)
+        {
+            if (!string.IsNullOrEmpty(ViewData["Title"].ToString()))
+            {
+                <div class="solid-block1">
+                    <div class="reveal-text1">
+                        <div class="cover1"></div>
+                        <h1>
+                            <u>@ViewData["Title"]</u>
+                        </h1>
+                    </div>
+                </div>
+            }
+        }
+        <div class="container">
+            <main role="main" class="pb-3">
+                <partial name="_Notification" />
+                @RenderBody()
+            </main>
+        </div>
+        
     </div>
 
     <footer class="mt-auto border-end footer text-muted">
