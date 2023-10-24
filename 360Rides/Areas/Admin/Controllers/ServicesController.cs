@@ -44,6 +44,7 @@ namespace _360Rides.Areas.Admin.Controllers
             }
             else
             {
+                ViewData["Title"] = "EDIT SERVICE";
                 servicesModel = _unitOfWork.ServicesRepository.Get(x => x.Id == id);
             }
             return View(servicesModel);

@@ -23,7 +23,6 @@ namespace _360Rides.Areas.Customer.Controllers
         public IActionResult Index()
         {
             ViewData["Title"] = "360 RIDES";
-            //ViewData["Button"] = "Fill Form";
             List<ServicesModel> listOfServices = _unitOfWork.ServicesRepository.GetAll().ToList();
             return View(listOfServices);
         }
