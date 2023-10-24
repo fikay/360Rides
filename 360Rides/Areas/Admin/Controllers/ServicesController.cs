@@ -29,7 +29,8 @@ namespace _360Rides.Areas.Admin.Controllers
         }
         
         public IActionResult Index()
-        {  
+        {
+            ViewData["Title"] = "SERVICES";
             return View();
         }
 
@@ -37,11 +38,15 @@ namespace _360Rides.Areas.Admin.Controllers
         {
             if(id == 0 )
             {
+                ViewData["Title"] = "CREATE NEW  SERVICE";
                 servicesModel = new ServicesModel();
             }
             else
             {
+
+                ViewData["Title"] = "EDIT SERVICE";
                 servicesModel = _unitOfWork.ServicesRepository.GetAsync(x => x.Id == id).GetAwaiter().GetResult();
+
             }
             return View(servicesModel);
         

@@ -34,6 +34,10 @@ namespace _360Rides.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
+
+            ViewData["Title"] = "360 RIDES";
+           
+
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             List<ServicesModel> listOfServices = _unitOfWork.ServicesRepository.GetAllAsync().GetAwaiter().GetResult().ToList();
@@ -43,6 +47,7 @@ namespace _360Rides.Areas.Customer.Controllers
             }
             
             return View( listOfServices);
+
         }
 
         [Authorize(Roles = SD.Role_Customer + "," + SD.Role_Admin + "," + SD.Role_Employee)]
