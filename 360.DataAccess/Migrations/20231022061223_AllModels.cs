@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace _360.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class addIdentityTables : Migration
+    public partial class AllModels : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,6 +30,12 @@ namespace _360.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(21)", maxLength: 21, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HomeAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -48,6 +54,25 @@ namespace _360.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "services",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ServiceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ServiceDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    priceperkm = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_services", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -156,6 +181,70 @@ namespace _360.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "serviceRequests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    childrenNumber = table.Column<int>(type: "int", nullable: false),
+                    PickUpLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DropOffLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    additionalComments = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    price = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_serviceRequests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_serviceRequests_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_serviceRequests_services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "services",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ChildrenNames",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ServiceRequestId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChildrenNames", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ChildrenNames_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ChildrenNames_serviceRequests_ServiceRequestId",
+                        column: x => x.ServiceRequestId,
+                        principalTable: "serviceRequests",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "services",
+                columns: new[] { "Id", "CreatedBy", "CreatedDate", "ServiceDescription", "ServiceName", "UpdatedBy", "UpdatedDate", "priceperkm" },
+                values: new object[] { 1, "Fikayo", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Schedule dates for pickup for your children and we will be there to pick them Up", "Child Pickup", "Fikayo", new DateTime(2023, 10, 22, 0, 12, 22, 121, DateTimeKind.Local).AddTicks(5615), 0 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -194,6 +283,26 @@ namespace _360.DataAccess.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChildrenNames_ServiceRequestId",
+                table: "ChildrenNames",
+                column: "ServiceRequestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChildrenNames_UserId",
+                table: "ChildrenNames",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_serviceRequests_ServiceId",
+                table: "serviceRequests",
+                column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_serviceRequests_UserId",
+                table: "serviceRequests",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -215,10 +324,19 @@ namespace _360.DataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "ChildrenNames");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "serviceRequests");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "services");
         }
     }
 }

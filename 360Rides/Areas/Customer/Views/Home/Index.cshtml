@@ -10,6 +10,7 @@
             <div class="card-body">
                 <h5 class="card-title">@service.ServiceName</h5>
                 <p class="card-text">@service.ServiceDescription</p>
+
                 <button class="col-1 learn-more">
                     <a asp-area="customer" asp-controller="Home" asp-action="Details" asp-route-id="@service.Id">
                     <span class="circle" aria-hidden="true">
@@ -19,6 +20,7 @@
                     </a>
                 </button>
                 @* <a asp-area="customer" asp-controller="Home" asp-action="Details" asp-route-id = "@service.Id" class="btn btn-primary">Fill </a> *@
+
             </div>
         </div>
     }

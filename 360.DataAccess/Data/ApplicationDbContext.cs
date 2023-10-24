@@ -18,6 +18,9 @@ namespace _360.DataAccess.Data
 
        public  DbSet<ApplicationUser> applicationUsers { get; set; }
         public DbSet<ServicesModel> services { get; set; }
+        public DbSet<ServiceRequest> serviceRequests { get; set; }
+        
+        public DbSet<ChildrenName> ChildrenNames { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

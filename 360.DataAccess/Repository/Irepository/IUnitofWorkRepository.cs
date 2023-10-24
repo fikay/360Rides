@@ -9,7 +9,8 @@ namespace _360.DataAccess.Repository.Irepository
    public interface IUnitofWorkRepository
     {  
        IServicesRepository ServicesRepository { get; }
-       
+       IServiceRequestRepository RequestRepository { get; }
+        IChildrenRepository ChildrenRepository { get; }
         void save();
     }
 }
