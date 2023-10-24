@@ -27,7 +27,7 @@
   
 
 </head>
-<body class ="d-flex flex-column">
+<body class ="d-flex flex-column bg-white">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-5">
             <div class="container-fluid grid gap-3">
@@ -62,11 +62,30 @@
                     </ul>
                 </div>
                 <partial name="_LoginPartial" class="d-none d-sm-flex align-items-center justify-content-end"/>
+
             </div>
+
         </nav>
 
        
     </header>
+
+    <div @* class="container" *@>
+        @if (ViewData["Title"] != null)
+        {
+            if (!string.IsNullOrEmpty(ViewData["Title"].ToString()))
+            {
+                <div class="solid-block1">
+                    <div class="reveal-text1">
+                        <div class="cover1"></div>
+                        <h1>
+                            <u>@ViewData["Title"]</u>
+                        </h1>
+                    </div>
+                </div>
+            }
+        }
+
     <div class="container">
         <main role="main" class="pb-3">
             <partial name="_Notification" />
@@ -90,9 +109,20 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/core@5.2.0/dist/PNotify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@Html.Raw("@")pnotify/confirm@5.2.0/dist/PNotifyConfirm.min.js"></script>
-    
 
-   
+
+       @*  @if (ViewData["Button"] != null)
+        {
+            if (!string.IsNullOrEmpty(ViewData["Button"].ToString()))
+            {
+                <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                </span>
+                <span class="button-text">
+                    @ViewData["Button"]
+                </span>
+            }
+        } *@
    
     
    

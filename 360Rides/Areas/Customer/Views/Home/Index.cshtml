@@ -1,6 +1,7 @@
 ﻿
 @model List<ServicesModel>
-
+<br />
+<br />
 <div class=" row text-center justify-content-evenly">
     @foreach(var service in Model)
     {
@@ -9,7 +10,15 @@
             <div class="card-body">
                 <h5 class="card-title">@service.ServiceName</h5>
                 <p class="card-text">@service.ServiceDescription</p>
-                <a asp-area="customer" asp-controller="Home" asp-action="Details" asp-route-id = "@service.Id" class="btn btn-primary">Fill Form</a>
+                <button class="col-1 learn-more">
+                    <a asp-area="customer" asp-controller="Home" asp-action="Details" asp-route-id="@service.Id">
+                    <span class="circle" aria-hidden="true">
+                        <span class="icon arrow"></span>
+                    </span>
+                    <span class="button-text">Fill Form</span>
+                    </a>
+                </button>
+                @* <a asp-area="customer" asp-controller="Home" asp-action="Details" asp-route-id = "@service.Id" class="btn btn-primary">Fill </a> *@
             </div>
         </div>
     }

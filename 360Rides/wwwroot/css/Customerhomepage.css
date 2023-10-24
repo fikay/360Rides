@@ -1,51 +1,6 @@
-﻿
-
-
-/*.solid-block1 {
-    background-color: red;
-    color: white;
-    padding: 0;
-    margin: 0;
-    width: stretch;
-    height: 25vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: larger;
-    font-family: 'Mongolian Baiti';
-    box-shadow: 10px 10px #1d1d1d;
+﻿body {
 }
 
-.reveal-text1 {
-    position: relative;
-    font-size: 24px;
-    overflow: hidden;
-}
-
-.cover1 {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: white;
-    animation: reveal 1.5s forwards;
-}
-
-@keyframes reveal {
-    0% {
-        left: 0;
-    }
-
-    100% {
-        left: 100%;
-    }
-}
-*/
-/*u {
-    text-decoration-color: white;
-    text-decoration-style:solid;
-}*/
 
 button {
     position: relative;
