@@ -1,5 +1,4 @@
 ﻿using _360.DataAccess.Data;
-using _360.DataAccess.Migrations;
 using _360.DataAccess.Repository;
 using _360.DataAccess.Repository.Irepository;
 using _360.Models;
@@ -44,7 +43,10 @@ namespace _360Rides.Areas.Admin.Controllers
             }
             else
             {
-                servicesModel = _unitOfWork.ServicesRepository.Get(x => x.Id == id);
+
+                ViewData["Title"] = "EDIT SERVICE";
+                servicesModel = _unitOfWork.ServicesRepository.GetAsync(x => x.Id == id).GetAwaiter().GetResult();
+
             }
             return View(servicesModel);
         
@@ -76,7 +78,7 @@ namespace _360Rides.Areas.Admin.Controllers
             {
                 if(servicesModel.Id == 0)
                 {
-                    _unitOfWork.ServicesRepository.Add(servicesModel);
+                    _unitOfWork.ServicesRepository.AddAsync(servicesModel);
                     TempData["Success"] = "New Service has been Created";
                 }
                 else
@@ -94,7 +96,7 @@ namespace _360Rides.Areas.Admin.Controllers
         #region API Calls
         public IActionResult GetAll()
         {
-            List<ServicesModel> services = _unitOfWork.ServicesRepository.GetAll().ToList();
+            List<ServicesModel> services = _unitOfWork.ServicesRepository.GetAllAsync().GetAwaiter().GetResult().ToList();
             return Json(new { services });
         }
 
@@ -108,7 +110,7 @@ namespace _360Rides.Areas.Admin.Controllers
             }
             else
             {
-                var service = _unitOfWork.ServicesRepository.Get(x => x.Id == id);
+                var service = _unitOfWork.ServicesRepository.GetAsync(x => x.Id == id).GetAwaiter().GetResult();
                 if(service == null)
                 {
                     return NotFound();

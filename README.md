@@ -1,9 +1,10 @@
-# 360Rides - Website for 360 Business 
+# 360Rides - Website for 360 Business
+A website to connect parents to ride services for transporting their kids to school and back to school for a fixed price. Looking at the confliting schedule of work and drop off toime for school, I realized i could ease the issue of having to wake up super early to drop off the kids by creating this service where parents set up a scheduled plan with 360Rides to always pick up their kids from home and drop them back at home at a specific time
 ## Setting Up
 - **Environments** - Visual Studio, SQL Server Management, GitHub.
 - **.NET Version** - 8.0
 - **Nuget Packages**
-
+The data Migrations will be done automatically by the DBInitializer so all you have to do is set up the Default Connection.
 `  
 Microsoft.AspNetCore.Identity.EntityFrameworkCore - For Authentication  
 Microsoft.AspNetCore.Identity.UI - For Authentication e.g IEmail  
@@ -12,7 +13,25 @@ Microsoft.EntityFrameworkCore.Sqlite - Database connections
 Microsoft.EntityFrameworkCore.SqlServer - Database connections  
 Microsoft.EntityFrameworkCore.Tools  
 
-`
+`  
+** Appsettings.json was excluded to protect my keys so include an appsettings.json file with the following format**
+  ```
+  {
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=**Your Server**;Database=360Rides;Trusted_Connection=true;TrustServerCertificate=True"
+  },
+  "GoogleApi": {
+    "ApiKey": "**Your Google API Key**"
+  }
+}
+  ```
 
 ## Connecting To Database SQL Server Management
 In `appsettings.json`, I included the connectionstring:   

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,12 +10,14 @@ using System.Threading.Tasks;
 
 namespace _360.Models
 {
-    public class ChildrenNames
+    public class ChildrenName
     {
         [Key]
         public int Id { get; set; }
 
+        [ValidateNever]
         public string UserId {  get; set; }
+        [ValidateNever]
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
 

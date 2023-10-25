@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,25 +14,40 @@ namespace _360.Models
         [Key]
         public int Id { get; set; }
 
-        public string UserId { get; set; }
+        public int ServiceId { get; set; }
+        [ValidateNever]
+        [ForeignKey("ServiceId")]
 
+        public ServicesModel Service { get; set; }
+
+        public string UserId { get; set; }
+        [ValidateNever]
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
 
         [Required]
+        [Display(Name ="Children Number")]
         public int childrenNumber { get; set; }
         [Required]
-        public List<ChildrenNames> childrenNames { get; set; }
+        public List<ChildrenName> childrenNames { get; set; }
         [Required]
+        [Display(Name = "PickUp Location")]
         public string PickUpLocation { get; set; }
         [Required]
+        [Display(Name = "DropOff Location")]
         public string DropOffLocation { get; set; }
         [Required]
 
-        public DateOnly StartDate { get; set; }
+        [Display(Name = "Start Date / Pickup Time")]
+        public DateTime StartDate { get; set; }
         [Required]
-        public DateOnly EndDate { get; set;}
+        [Display(Name = "End Date / Drop Off Time")]
+        public DateTime EndDate { get; set;}
 
-        public int price { get; set; }
+        [ValidateNever]
+        [Display(Name = "Additional Comments")]
+      
+        public string additionalComments { get; set; }
+        public double price { get; set; }
     }
 }
