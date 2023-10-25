@@ -60,7 +60,7 @@ namespace _360Rides.Areas.Customer.Controllers
             var serviceChosen = _unitOfWork.ServicesRepository.GetAsync( filter:x => x.Id == product).GetAwaiter().GetResult();
             var user = _db.Users.FirstOrDefault(x => x.Id == userId) as ApplicationUser;
             ServiceRequest request = new() {
-                ServiceId = serviceChosen.Id,      
+                ServiceId = serviceChosen.Id,
                 UserId = user.Id,
             };
             // Check if the User has Kids in our DB and send list to the Viewbag
