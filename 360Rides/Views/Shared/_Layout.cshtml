@@ -29,6 +29,7 @@
 </head>
 <body class ="d-flex flex-column bg-white">
     <header>
+        <div style="height:50px">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-5">
             <div class="container-fluid grid gap-3">
                 <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index"><img src="~/image/360ridenb.png" class="logo" alt="Example Image"></a>
@@ -65,7 +66,8 @@
 
             </div>
 
-        </nav>
+            </nav>
+        </div>
 
        
     </header>
@@ -79,7 +81,7 @@
                     <div class="reveal-text1">
                         <div class="cover1"></div>
                         <h1>
-                            <u>@ViewData["Title"]</u>
+                            @ViewData["Title"]
                         </h1>
                     </div>
                 </div>
