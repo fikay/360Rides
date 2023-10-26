@@ -67,7 +67,7 @@ namespace _360.DataAccess.Repository
             IQueryable<T> queryable = dbSet;
             if (filter != null)
             {
-                queryable.Where(filter);
+              queryable =   queryable.Where(filter);
             }
             
             if (!string.IsNullOrEmpty(includeProperties))

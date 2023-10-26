@@ -43,7 +43,8 @@ namespace _360Rides.Areas.Customer.Controllers
             List<ServicesModel> listOfServices = _unitOfWork.ServicesRepository.GetAllAsync().GetAwaiter().GetResult().ToList();
             if(claim != null)
             {
-                HttpContext.Session.SetInt32(SD.SessionName, _unitOfWork.RequestRepository.GetAllAsync(x => x.UserId == claim.Value).GetAwaiter().GetResult().Count());
+                var inCart = _unitOfWork.RequestRepository.GetAllAsync(x => x.UserId == claim.Value).GetAwaiter().GetResult();
+                HttpContext.Session.SetInt32(SD.SessionName, inCart.Count());
             }
             
             return View( listOfServices);
@@ -99,7 +100,8 @@ namespace _360Rides.Areas.Customer.Controllers
                 _unitOfWork.save();
                 //_unitOfWork.save();
             }
-            HttpContext.Session.SetInt32(SD.SessionName, _unitOfWork.RequestRepository.GetAllAsync(x => x.UserId == user.Id).GetAwaiter().GetResult().Count());
+            var servicerequest = _unitOfWork.RequestRepository.GetAllAsync(x => x.UserId == user.Id).GetAwaiter().GetResult();
+            HttpContext.Session.SetInt32(SD.SessionName, servicerequest.Count());
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Privacy()

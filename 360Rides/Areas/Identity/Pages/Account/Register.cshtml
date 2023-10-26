@@ -1,5 +1,6 @@
 ﻿@page
 @model RegisterModel
+@inject IOptions<GoogleSettings> MySettingsOptions
 @{
     ViewData["Title"] = "";
 }
@@ -32,7 +33,7 @@
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input id="searchInput" asp-for="Input.HomeAddress" class="form-control" autocomplete="street address" aria-required="true" placeholder="Street Address" />
+                    <input id="autocomplete" asp-for="Input.HomeAddress" class="form-control" autocomplete="street address" aria-required="true" placeholder="Street Address" />
                 <ul id="placesList"></ul>
                 <label class="mx-2" asp-for="Input.HomeAddress">Address</label>
                 <span asp-validation-for="Input.HomeAddress" class="text-danger"></span>
@@ -42,17 +43,17 @@
             <div class=" row form-floating mb-3">
                
                 <div class="form-floating mb-3 col-md-4">
-                    <input asp-for="Input.City" class="form-control " autocomplete="on" aria-required="true" placeholder="City" />
+                    <input id="city" asp-for="Input.City" class="form-control " autocomplete="on" aria-required="true" placeholder="City" />
                     <label class="mx-2 " asp-for="Input.City">City</label>
                     <span asp-validation-for="Input.City" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3 col-md-4">
-                    <input asp-for="Input.State" class="form-control" autocomplete="on" aria-required="true" placeholder="State" />
+                    <input id="state" asp-for="Input.State" class="form-control" autocomplete="on" aria-required="true" placeholder="State" />
                     <label class="mx-2 " asp-for="Input.State">State</label>
                     <span asp-validation-for="Input.State" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3 col-md-4">
-                    <input asp-for="Input.PostalCode" class="form-control" autocomplete="on" aria-required="true" placeholder="Postal Code" />
+                    <input id="postal" asp-for="Input.PostalCode" class="form-control" autocomplete="on" aria-required="true" placeholder="Postal Code" />
                     <label class="mx-2" asp-for="Input.PostalCode">Postal Code</label>
                     <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
                 </div>
@@ -125,6 +126,8 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=@MySettingsOptions.Value.ApiKey&libraries=places&callback=initMap" async defer"></script>
+    <script src="~/js/Register.js"></script>
   @*   <script>
         $(document).ready(function () {
             $('#searchInput').on('input', function () {

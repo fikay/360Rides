@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\Register.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\Register.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0-rc.2.23480.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0-rc.2.23480.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0-rc.2.23480.1" />
@@ -24,6 +32,10 @@
 
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="wwwroot\image\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\Register.js" />
   </ItemGroup>
 
   <ItemGroup>
