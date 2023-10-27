@@ -349,7 +349,7 @@ namespace _360.DataAccess.Migrations
                             ServiceDescription = "Schedule dates for pickup for your children and we will be there to pick them Up",
                             ServiceName = "Child Pickup",
                             UpdatedBy = "Fikayo",
-                            UpdatedDate = new DateTime(2023, 10, 22, 14, 31, 30, 42, DateTimeKind.Local).AddTicks(2802),
+                            UpdatedDate = new DateTime(2023, 10, 24, 18, 48, 45, 297, DateTimeKind.Local).AddTicks(9947),
                             priceperkm = 0
                         });
                 });
