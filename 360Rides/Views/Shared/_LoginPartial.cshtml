@@ -6,8 +6,12 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+    <li class="nav-item profile-circle">
+            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><span id="profileName"></span></a>
+            <input type="hidden" id="email" value="@User.Identity.Name" />
+            <script>
+                updateProfileName(); 
+            </script>
     </li>
     <li class="nav-item">
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -25,3 +29,47 @@ else
     </li>
 }
 </ul>
+
+
+
+<script>
+    function updateProfileName() {
+        var emailInput = document.getElementById('email');
+        var profileNameElement = document.getElementById('profileName');
+
+        if (emailInput && profileNameElement) {
+            var email = emailInput.value;
+            var firstLetter = getProfileName(email);
+
+            profileNameElement.textContent = firstLetter;
+        }
+    }
+
+    function getProfileName(email) {
+        if (email) {
+            email = email.trim();
+            var firstLetter = email.charAt(0).toUpperCase();
+            return firstLetter;
+        }
+        return 'A';
+    }
+
+    window.addEventListener('load', updateProfileName);
+</script>
+
+
+ <style>
+    .profile-circle {
+        width: 45px;
+        height: 45px;
+        background-color: red;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color:white;
+        font-size: 20px;
+        font-weight:bold;
+    }
+</style> 
+

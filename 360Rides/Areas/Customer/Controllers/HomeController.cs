@@ -53,6 +53,9 @@ namespace _360Rides.Areas.Customer.Controllers
         [Authorize(Roles = SD.Role_Customer + "," + SD.Role_Admin + "," + SD.Role_Employee)]
         public  IActionResult Details(int product)
         {
+
+            
+
             // Get ASPUSER ID and ServiceChosen 
             // Find the User and set the service Id And User Id to the respective field in service request
             var claimsIdentity = (ClaimsIdentity)User.Identity;
