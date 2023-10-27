@@ -43,7 +43,8 @@ namespace _360Rides.Areas.Customer.Controllers
             List<ServicesModel> listOfServices = _unitOfWork.ServicesRepository.GetAllAsync().GetAwaiter().GetResult().ToList();
             if(claim != null)
             {
-                HttpContext.Session.SetInt32(SD.SessionName, _unitOfWork.RequestRepository.GetAllAsync(x => x.UserId == claim.Value).GetAwaiter().GetResult().Count());
+                var inCart = _unitOfWork.RequestRepository.GetAllAsync(x => x.UserId == claim.Value).GetAwaiter().GetResult();
+                HttpContext.Session.SetInt32(SD.SessionName, inCart.Count());
             }
             
             return View( listOfServices);
@@ -83,6 +84,7 @@ namespace _360Rides.Areas.Customer.Controllers
 
             return View(request);
         }
+        [Authorize(Roles = SD.Role_Customer + "," + SD.Role_Admin + "," + SD.Role_Employee)]
         [HttpPost]
         public  IActionResult Details(ServiceRequest request)
         {
@@ -90,19 +92,15 @@ namespace _360Rides.Areas.Customer.Controllers
             foreach (var child in request.childrenNames)
             {
                     child.UserId = user.Id;
-              //if (!_unitOfWork.ChildrenRepository.FindAsync(x => x.Name == child.Name ).GetAwaiter().GetResult())
-              //  {
-              //      _unitOfWork.ChildrenRepository.AddAsync(child).GetAwaiter().GetResult();
-              //  }
             }
             if (ModelState.IsValid)
             {
                 _unitOfWork.ChildrenRepository.AddRangeAsync(request.childrenNames).GetAwaiter().GetResult();
                 _unitOfWork.RequestRepository.AddAsync(request).GetAwaiter().GetResult();
                 _unitOfWork.save();
-                //_unitOfWork.save();
             }
-            HttpContext.Session.SetInt32(SD.SessionName, _unitOfWork.RequestRepository.GetAllAsync(x => x.UserId == user.Id).GetAwaiter().GetResult().Count());
+            var servicerequest = _unitOfWork.RequestRepository.GetAllAsync(x => x.UserId == user.Id).GetAwaiter().GetResult();
+            HttpContext.Session.SetInt32(SD.SessionName, servicerequest.Count());
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Privacy()
@@ -117,6 +115,7 @@ namespace _360Rides.Areas.Customer.Controllers
         }
 
         #region API CALLS
+        [Authorize(Roles = SD.Role_Customer + "," + SD.Role_Admin + "," + SD.Role_Employee)]
         [HttpGet]
         public IActionResult getPrice(int distance)
         {

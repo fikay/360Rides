@@ -70,7 +70,7 @@
     </header>
 
     <div @* class="container" *@>
-        @if (ViewData["Title"] != null)
+        @if (ViewData["Title"] != null && !( ViewData["Title"] == "Profile"))
         {
             if (!string.IsNullOrEmpty(ViewData["Title"].ToString()))
             {
@@ -88,7 +88,7 @@
                 </div>
             }
         }
-
+    </div>
     <div class="container">
         <main role="main" class="pb-3">
             <partial name="_Notification" />
