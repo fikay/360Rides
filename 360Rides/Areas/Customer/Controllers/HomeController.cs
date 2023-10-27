@@ -54,6 +54,9 @@ namespace _360Rides.Areas.Customer.Controllers
         [Authorize(Roles = SD.Role_Customer + "," + SD.Role_Admin + "," + SD.Role_Employee)]
         public  IActionResult Details(int product)
         {
+
+            
+
             // Get ASPUSER ID and ServiceChosen 
             // Find the User and set the service Id And User Id to the respective field in service request
             var claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -61,7 +64,7 @@ namespace _360Rides.Areas.Customer.Controllers
             var serviceChosen = _unitOfWork.ServicesRepository.GetAsync( filter:x => x.Id == product).GetAwaiter().GetResult();
             var user = _db.Users.FirstOrDefault(x => x.Id == userId) as ApplicationUser;
             ServiceRequest request = new() {
-                ServiceId = serviceChosen.Id,      
+                ServiceId = serviceChosen.Id,
                 UserId = user.Id,
             };
             // Check if the User has Kids in our DB and send list to the Viewbag

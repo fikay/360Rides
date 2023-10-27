@@ -1,15 +1,24 @@
-﻿@model  ServiceRequest
+﻿@section Styles {
+    <style src="~/css/Detailspage.css"></style>
+}
+
+
+@model  ServiceRequest
 @inject IOptions<GoogleSettings> MySettingsOptions
 @if (!User.IsInRole(SD.Role_Employee) && !User.IsInRole(SD.Role_Customer) && !User.IsInRole(SD.Role_Admin))
  {
             <h1> you have to be signed in to send in a request</h1>
  }
 
+ <br />
+ <br />
 <div class="row">
+
    @*  <div class="col-12 text-center">
         <h1>Request Form for @ViewBag.Title</h1>
     </div> *@
     <form method="post" class="col-11" id="myForm">
+
         <div  class=" row col-md-11 col-sm-11">
             
             <input asp-for="User" hidden />

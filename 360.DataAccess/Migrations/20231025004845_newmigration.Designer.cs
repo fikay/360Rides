@@ -12,8 +12,8 @@ using _360.DataAccess.Data;
 namespace _360.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231022061223_AllModels")]
-    partial class AllModels
+    [Migration("20231025004845_newmigration")]
+    partial class newmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -352,7 +352,7 @@ namespace _360.DataAccess.Migrations
                             ServiceDescription = "Schedule dates for pickup for your children and we will be there to pick them Up",
                             ServiceName = "Child Pickup",
                             UpdatedBy = "Fikayo",
-                            UpdatedDate = new DateTime(2023, 10, 22, 0, 12, 22, 121, DateTimeKind.Local).AddTicks(5615),
+                            UpdatedDate = new DateTime(2023, 10, 24, 18, 48, 45, 297, DateTimeKind.Local).AddTicks(9947),
                             priceperkm = 0
                         });
                 });
