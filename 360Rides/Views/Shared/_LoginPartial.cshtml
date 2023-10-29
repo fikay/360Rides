@@ -9,9 +9,9 @@
     <li class="nav-item profile-circle">
             <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><span id="profileName"></span></a>
             <input type="hidden" id="email" value="@User.Identity.Name" />
-            <script>
+            @* <script>
                 updateProfileName(); 
-            </script>
+            </script> *@
     </li>
     <li class="nav-item">
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

@@ -1,0 +1,153 @@
+﻿@model ServiceRequest
+@{
+    var count = 0;
+    string inputDateTime = Model.StartDate.ToString();
+    DateTime parsedDateTime = DateTime.ParseExact(inputDateTime, "yyyy-MM-dd h:mm:ss tt", CultureInfo.InvariantCulture);
+
+    // Format the parsed date-time as "yyyy-MM-ddTHH:mm"
+    string formattedDateTime = parsedDateTime.ToString("yyyy-MM-ddTHH:mm");
+
+    string inputDateTime1 = Model.EndDate.ToString();
+    DateTime parsedDateTime1 = DateTime.ParseExact(inputDateTime1, "yyyy-MM-dd h:mm:ss tt", CultureInfo.InvariantCulture);
+
+    // Format the parsed date-time as "yyyy-MM-ddTHH:mm"
+    string formattedDateTime1 = parsedDateTime1.ToString("yyyy-MM-ddTHH:mm");
+}
+<div class="row">
+    <form method="post" class="col-11 my-2" id="myForm">
+        <div class="row col-12">
+            <input asp-for="User" hidden />
+            <input asp-for="Id" hidden />
+            <input asp-for="UserId" hidden />
+            <input asp-for="Service" hidden />
+            <input asp-for="ServiceId" hidden />
+            @if (@Model.childrenNames != null)
+            {
+                @foreach (var child in Model.childrenNames)
+                {
+
+                    <label asp-for="@Model.childrenNames" class="form-label"></label>
+                    <div class="row col-5 input-group mb-3">
+                        <input type="text" hidden asp-for="childrenNames[count].Id" />
+                        <input type="text" asp-for="childrenNames[count].Name" class="form-control col-4 names" id="autocomplete" aria-describedby="ChildrenNumber" value="@child.Name" />
+                        <a asp-controller="Cart" asp-action="removeChild" asp-route-id="@child.Id" asp-route-serviceId="@Model.Id" class="col-3 btn btn-danger input-group-text"><i class="bi bi-trash3-fill"></i></a>
+                    </div>
+
+                    <span asp-validation-for="@Model.childrenNames" class="text-danger"></span>
+                  count++;
+                }
+            }
+            else
+            {
+                <p> No Child entered yet! </p>
+            }
+            
+        </div>
+        <div id="names" class="col-7 my-2">
+        </div>
+        <div class=" d-flex align-items-end col-5">
+            <button type="button" id="addChildButton" class="btn btn-primary "><i class="bi bi-plus-circle"> Add Child</i></button>
+        </div>
+
+        <div>
+            <label asp-for="PickUpLocation" class="form-label"></label>
+            <input type="text" asp-for="PickUpLocation" class="form-control" id="autocomplete" aria-describedby="ChildrenNumber" />
+            <span asp-validation-for="PickUpLocation" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="DropOffLocation" class="form-label"></label>
+            <input type="text" asp-for="DropOffLocation" class="form-control" id="autocomplete1" aria-describedby="ChildrenNumber" />
+            <span asp-validation-for="DropOffLocation" class="text-danger"></span>
+        </div>
+        <div class=" row col-6 col-sm-12 d-flex justify-content-start align-items-end my-1">
+            <div class="col-3 col-sm-3  my-1">
+                <label asp-for="StartDate" class="form-label"></label>
+                <input type="datetime" asp-for="StartDate" class="form-control date" aria-describedby="ChildrenNumber" value="@formattedDateTime" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="col-3 col-sm-3 my-1">
+                <label asp-for="EndDate" class="form-label"></label>
+                <input type="datetime" asp-for="EndDate" class="form-control date" aria-describedby="ChildrenNumber" value="@formattedDateTime1" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-8 my-3">
+            <label asp-for="additionalComments" class="form-label"></label>
+            <textArea id="textArea" asp-for="additionalComments" class="form-control" placeholder="We Understand parents do not require the service everyday of the week. You can include the days when the service is not required in here or any thing you would like us to know. If nothing put N/A" aria-describedby="ChildrenNumber"></textArea>
+            <span asp-validation-for="additionalComments" class="text-danger"></span>
+        </div>
+
+
+        <div class="row   my-3 col-sm-4 col-md-6 ">
+            <label asp-for="price" class="form-label">This is a Per Day Estimate</label>
+            <div class=" input-group mb-3 col-md-6 col-sm-4">
+                <span class="input-group-text">$</span>
+                <input id="price" type="number" class="form-control" asp-for="price" aria-label="Amount (to the nearest dollar)" style="pointer-events:none" value="@Math.Ceiling(@Model.price)">
+                <button type="button" onclick="calculateDistance()" class="btn btn-primary input-group-text">Get Price</button>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Update Item</button>
+    </form>
+
+</div>
+
+@section Scripts{
+    <script>
+        var childIndex = @Model.childrenNumber;
+        $("#addChildButton").click(function () {
+
+            var newDiv = $('<div>').addClass('child-container my-3');
+            var label = $('<label>').text('Child Name').addClass('form-label my-2 col-4');
+            var inputContainer = $('<div>').addClass(' col-6 input-container d-flex align-items-end names');
+            var newInput = $('<input>').attr('type', 'text').addClass('form-control new-input col-4');
+            // Set the name attribute manually to bind to ChildNames[childIndex]
+            newInput.attr('name', 'childrenNames[' + childIndex + '].Name');
+            //Create Delete Button
+            var deleteButton = $('<button>').text('Delete').addClass('btn btn-danger delete-button ');
+            deleteButton.click(function () {
+                newDiv.remove();
+                childIndex--;
+                $('#ChildrenNumber').val(childIndex)
+            });
+            inputContainer.append(newInput);
+            inputContainer.append(deleteButton);
+            $('#names').append(newDiv);
+            newDiv.append(label);
+            newDiv.append(inputContainer);
+            childIndex++;
+            $('#ChildrenNumber').val(childIndex)
+        });
+
+        $('#myForm').submit(function () {
+            var x = @Model.childrenNumber;
+            var check = false;
+            var isEmpty = false;
+            if ($('#names').find('.new-input').length > 0) {
+                check = true;
+            }
+            console.log(@Model.childrenNumber);
+            console.log(check);
+
+            if (x == 0 && check == false) {
+                alert("A child must be added");
+                event.preventDefault();
+            }
+            else {
+                $('.new-input').each(function () {
+                    if ($(this).val().trim() === '') {
+                        isEmpty = true;
+                        return false; // Exit the loop if any input is empty
+                    }
+                });
+
+                if (isEmpty == true) {
+                    alert("Child field cannot be empty");
+                    event.preventDefault();
+                }
+               
+            }
+            
+          });
+    </script>
+}
