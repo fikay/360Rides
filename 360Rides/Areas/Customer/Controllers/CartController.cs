@@ -30,6 +30,12 @@ namespace _360Rides.Areas.Customer.Controllers
            var cart =  _unitofWork.RequestRepository.GetAllAsync(x=>x.UserId == userId, includeProperties: "Service").GetAwaiter().GetResult();
             return View(cart);
         }
+        [HttpPost, ActionName("Index")]
+        public IActionResult sendRequest()
+        {
+
+            return View();
+        }
 
         public IActionResult Details(int request)
         {
