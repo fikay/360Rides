@@ -29,6 +29,7 @@ namespace _360.Models
         [Display(Name ="Children Number")]
         public int childrenNumber { get; set; }
         [Required]
+        [Display(Name ="Child Name")]
         public List<ChildrenName> childrenNames { get; set; }
         [Required]
         [Display(Name = "PickUp Location")]

@@ -21,6 +21,10 @@ namespace _360.DataAccess.Data
         public DbSet<ServiceRequest> serviceRequests { get; set; }
         
         public DbSet<ChildrenName> ChildrenNames { get; set; }
+
+        public DbSet<ReceivedRequestHeader> receivedRequestHeaders { get; set; }
+
+        public DbSet<ReceivedRequestDetails> ReceivedRequestDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

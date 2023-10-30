@@ -11,6 +11,8 @@ namespace _360.DataAccess.Repository.Irepository
        IServicesRepository ServicesRepository { get; }
        IServiceRequestRepository RequestRepository { get; }
         IChildrenRepository ChildrenRepository { get; }
+        IReceivedRequestHeader ReceivedRequestHeader { get; }
+        IReceivedRequestDetails ReceivedRequestDetails { get; }
         void save();
     }
 }
