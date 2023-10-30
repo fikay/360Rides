@@ -4,6 +4,7 @@ html {
 
 body {
     background-color:white;
+    font-family:'Times New Roman', Times, serif;
 }
 
 header{
@@ -31,6 +32,13 @@ header{
 nav-link text-dark{
     padding-left: 2em;
 
+}
+
+.bordered-form {
+    /* border: 1px solid #ffe5e5;*/
+    padding: 60px;
+    border-radius: 0.5px;
+    background-color: #f3f3f3;
 }
 
 
