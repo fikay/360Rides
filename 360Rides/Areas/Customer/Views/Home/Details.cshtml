@@ -12,12 +12,13 @@
 
  <br />
  <br />
-<div class="row">
+ <div class="container mx-auto">
+    <div class="row align-content-end">
 
    @*  <div class="col-12 text-center">
         <h1>Request Form for @ViewBag.Title</h1>
     </div> *@
-    <form method="post" class="col-11" id="myForm">
+        <form method="post" class="col-11 bordered-form" id="myForm">
 
         <div  class=" row col-md-11 col-sm-11">
             
@@ -58,7 +59,7 @@
                 }
             </div> *@
             <div class=" d-flex align-items-end col-5">
-                <button type="button" id="addChildButton" class="btn btn-primary "><i class="bi bi-plus-circle"> Add Child</i></button>
+                <button type="button" id="addChildButton" class="btn btn-danger "><i class="bi bi-plus-circle"> Add Child</i></button>
             </div>    
         </div>
         <div id="names" class="col-7 my-2">
@@ -95,24 +96,30 @@
         </div>
         
 
-        <div class="row   my-3 col-sm-4 col-md-6 ">
+        <div class="row my-3 col-sm-4 col-md-6 ">
             <label asp-for="price" class="form-label">This is a Per Day Estimate</label>
             <div class=" input-group mb-3 col-md-6 col-sm-4">      
                     <span class="input-group-text">$</span>
                     <input id="price" type="number" class="form-control" asp-for="price"  aria-label="Amount (to the nearest dollar)" style="pointer-events:none">
-                    <button type="button" onclick="calculateDistance()" class="btn btn-primary input-group-text">Get Price</button>
+                    <button type="button" onclick="calculateDistance()" class="btn btn-outline-danger input-group-text">Get Price</button>
             </div>     
         </div>
 
         @if (User.IsInRole(SD.Role_Employee) || User.IsInRole(SD.Role_Customer) || User.IsInRole(SD.Role_Admin))
         {
            
-            <button type="submit" class="btn btn-primary">Add Request to Cart</button>
+                <button type="submit" class=" col-1 learn-more">
+                    <span class="circle" aria-hidden="true">
+                        <span class="icon arrow"></span>
+                    </span>
+                    <span class="button-text">Add to Cart</span>
+            </button>
         }
         
        
     </form>
 
+</div>
 </div>
 
 @section Scripts{
