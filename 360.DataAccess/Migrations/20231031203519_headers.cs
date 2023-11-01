@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace _360.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class newmigration : Migration
+    public partial class headers : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,6 +54,18 @@ namespace _360.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReceivedRequestDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReceivedRequestDetails", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,6 +194,34 @@ namespace _360.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "receivedRequestHeaders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Userid = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OrderId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    requestDetails = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_receivedRequestHeaders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_receivedRequestHeaders_AspNetUsers_Userid",
+                        column: x => x.Userid,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_receivedRequestHeaders_ReceivedRequestDetails_requestDetails",
+                        column: x => x.requestDetails,
+                        principalTable: "ReceivedRequestDetails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "serviceRequests",
                 columns: table => new
                 {
@@ -195,7 +235,8 @@ namespace _360.DataAccess.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     additionalComments = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    price = table.Column<double>(type: "float", nullable: false)
+                    price = table.Column<double>(type: "float", nullable: false),
+                    ReceivedRequestDetailsId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -206,6 +247,11 @@ namespace _360.DataAccess.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_serviceRequests_ReceivedRequestDetails_ReceivedRequestDetailsId",
+                        column: x => x.ReceivedRequestDetailsId,
+                        principalTable: "ReceivedRequestDetails",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_serviceRequests_services_ServiceId",
                         column: x => x.ServiceId,
@@ -243,7 +289,7 @@ namespace _360.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "services",
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "ServiceDescription", "ServiceName", "UpdatedBy", "UpdatedDate", "priceperkm" },
-                values: new object[] { 1, "Fikayo", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Schedule dates for pickup for your children and we will be there to pick them Up", "Child Pickup", "Fikayo", new DateTime(2023, 10, 24, 18, 48, 45, 297, DateTimeKind.Local).AddTicks(9947), 0 });
+                values: new object[] { 1, "Fikayo", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Schedule dates for pickup for your children and we will be there to pick them Up", "Child Pickup", "Fikayo", new DateTime(2023, 10, 31, 14, 35, 18, 497, DateTimeKind.Local).AddTicks(6373), 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -295,6 +341,21 @@ namespace _360.DataAccess.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_receivedRequestHeaders_requestDetails",
+                table: "receivedRequestHeaders",
+                column: "requestDetails");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_receivedRequestHeaders_Userid",
+                table: "receivedRequestHeaders",
+                column: "Userid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_serviceRequests_ReceivedRequestDetailsId",
+                table: "serviceRequests",
+                column: "ReceivedRequestDetailsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_serviceRequests_ServiceId",
                 table: "serviceRequests",
                 column: "ServiceId");
@@ -327,6 +388,9 @@ namespace _360.DataAccess.Migrations
                 name: "ChildrenNames");
 
             migrationBuilder.DropTable(
+                name: "receivedRequestHeaders");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -334,6 +398,9 @@ namespace _360.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "ReceivedRequestDetails");
 
             migrationBuilder.DropTable(
                 name: "services");

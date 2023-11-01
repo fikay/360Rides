@@ -3,7 +3,7 @@
 }
 
 
-@model  ServiceRequest
+@model  ServiceRequestDTO
 @inject IOptions<GoogleSettings> MySettingsOptions
 @if (!User.IsInRole(SD.Role_Employee) && !User.IsInRole(SD.Role_Customer) && !User.IsInRole(SD.Role_Admin))
  {
@@ -22,9 +22,8 @@
 
         <div  class=" row col-md-11 col-sm-11">
             
-            <input asp-for="User" hidden />
+            
             <input asp-for="UserId" hidden />
-            <input asp-for="Service" hidden />
             <input asp-for="ServiceId" hidden />
             <div class="col-6" hidden>
                 <label asp-for="childrenNumber" class="form-label"></label>
@@ -111,7 +110,7 @@
                 var inputContainer = $('<div>').addClass(' col-6 input-container d-flex align-items-end');
                 var newInput = $('<input>').attr('type', 'text').addClass('form-control new-input col-4');
                 // Set the name attribute manually to bind to ChildNames[childIndex]
-                newInput.attr('name', 'childrenNames[' + childIndex + '].Name');
+                newInput.attr('name', 'childrenName');
                 //Create Delete Button
                 var deleteButton = $('<button>').text('Delete').addClass('btn btn-danger delete-button ');
                 deleteButton.click(function () {

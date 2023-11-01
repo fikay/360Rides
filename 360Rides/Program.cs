@@ -41,6 +41,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IUnitofWorkRepository, UnitofWork>();
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
 builder.Services.AddHttpClient();
 

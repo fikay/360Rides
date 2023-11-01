@@ -254,7 +254,52 @@ namespace _360.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ChildrenNames");
+                    b.ToTable("ChildrenNames", (string)null);
+                });
+
+            modelBuilder.Entity("_360.Models.ReceivedRequestDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReceivedRequestDetails", (string)null);
+                });
+
+            modelBuilder.Entity("_360.Models.ReceivedRequestHeader", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("OrderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Userid")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("requestDetails")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Userid");
+
+                    b.HasIndex("requestDetails");
+
+                    b.ToTable("receivedRequestHeaders", (string)null);
                 });
 
             modelBuilder.Entity("_360.Models.ReceivedRequestDetails", b =>
@@ -352,7 +397,7 @@ namespace _360.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("serviceRequests");
+                    b.ToTable("serviceRequests", (string)null);
                 });
 
             modelBuilder.Entity("_360.Models.ServicesModel", b =>
@@ -388,7 +433,7 @@ namespace _360.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("services");
+                    b.ToTable("services", (string)null);
 
                     b.HasData(
                         new
@@ -399,7 +444,9 @@ namespace _360.DataAccess.Migrations
                             ServiceDescription = "Schedule dates for pickup for your children and we will be there to pick them Up",
                             ServiceName = "Child Pickup",
                             UpdatedBy = "Fikayo",
-                            UpdatedDate = new DateTime(2023, 10, 28, 23, 57, 46, 392, DateTimeKind.Local).AddTicks(8575),
+
+                            UpdatedDate = new DateTime(2023, 10, 31, 14, 35, 18, 497, DateTimeKind.Local).AddTicks(6373),
+
                             priceperkm = 0
                         });
                 });
