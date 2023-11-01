@@ -1,4 +1,6 @@
+
 ﻿@model ServiceRequestDTO
+
 @{
     var count = 0;
     string inputDateTime = Model.StartDate.ToString();
@@ -16,6 +18,7 @@
 <div class="row">
     <form method="post" class="col-11 my-2" id="myForm">
         <div class="row col-12">
+
             @* <input asp-for="User" hidden /> *@
             <input asp-for="Id" hidden />
             <input asp-for="UserId" hidden />      
@@ -33,6 +36,7 @@
                     </div>
 
                     <span asp-validation-for="@Model.childrenName" class="text-danger"></span>
+
                   count++;
                 }
             }
@@ -93,7 +97,9 @@
 
 @section Scripts{
     <script>
+
         var childIndex = @Model.childrenNumber+1;
+
         $("#addChildButton").click(function () {
 
             var newDiv = $('<div>').addClass('child-container my-3');
@@ -101,7 +107,9 @@
             var inputContainer = $('<div>').addClass(' col-6 input-container d-flex align-items-end names');
             var newInput = $('<input>').attr('type', 'text').addClass('form-control new-input col-4');
             // Set the name attribute manually to bind to ChildNames[childIndex]
+
             newInput.attr('name', 'childrenName');
+
             //Create Delete Button
             var deleteButton = $('<button>').text('Delete').addClass('btn btn-danger delete-button ');
             deleteButton.click(function () {

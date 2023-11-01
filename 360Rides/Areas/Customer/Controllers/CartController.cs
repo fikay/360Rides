@@ -1,8 +1,12 @@
 ﻿using _360.DataAccess.Repository;
 using _360.DataAccess.Repository.Irepository;
+
 using Microsoft.AspNetCore.Http;
 using _360.Models;
 using _360.Models.DTO;
+
+using _360.Models;
+
 using _360.Models.ViewModels;
 using _360.Utility;
 using AutoMapper;
@@ -16,7 +20,9 @@ namespace _360Rides.Areas.Customer.Controllers
     public class CartController : Controller
     {
         private readonly IUnitofWorkRepository _unitofWork;
+
         private readonly IMapper _mapper;
+
         [BindProperty]
         private RequestVM _requestVM { get; set; }
 
@@ -44,6 +50,7 @@ namespace _360Rides.Areas.Customer.Controllers
 
             return View();
         }
+
 
         public IActionResult Details(int requestId)
         {
@@ -73,9 +80,11 @@ namespace _360Rides.Areas.Customer.Controllers
             }
             _unitofWork.RequestRepository.update(serviceRequest);
 
+
             _unitofWork.save();
             return RedirectToAction(nameof(Index));
         }
+
 
         public IActionResult removeChild( int requestId, string Name)
         {
@@ -87,11 +96,13 @@ namespace _360Rides.Areas.Customer.Controllers
          
             request.childrenNames.Remove(findChild);
             request.childrenNumber = request.childrenNumber - 1;
+
             _unitofWork.RequestRepository.update(request);
             _unitofWork.ChildrenRepository.Delete(findChild);
 
 
             _unitofWork.save();
+
            
 
             return RedirectToAction(nameof(Details), new { requestId = request.Id});
@@ -102,6 +113,7 @@ namespace _360Rides.Areas.Customer.Controllers
         {
             
             var requestService = _unitofWork.RequestRepository.GetAsync(x => x.Id == requestId, includeProperties: "childrenNames").GetAwaiter().GetResult();
+
             var user = requestService.UserId;
             foreach (var child in requestService.childrenNames)
             {

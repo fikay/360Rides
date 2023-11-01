@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
     <link rel="stylesheet" href="~/css/servicepage.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Detialspage.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/cartpage.css" asp-append-version="true" />
 
     @* <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" /> *@
     @RenderSection("Styles", required: false)
@@ -25,14 +27,14 @@
     <header>
         <div style="height:50px">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-5">
-            <div class="container-fluid grid gap-2">
-                    <a class="navbar-brand justify-content-center" asp-area="Customer" asp-controller="Home" asp-action="Index"><img src="~/image/360ridenb.png" class="logo" alt="Example Image"></a>
+            <div class=" row container-fluid grid gap-2">
+                    <a class="navbar-brand justify-content-center col-3" asp-area="Customer" asp-controller="Home" asp-action="Index"><img src="~/image/360ridenb.png" class="logo" alt="Example Image"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex ">
-                        <ul class="navbar-nav flex-grow-1 justify-content-start">
+                <div class="navbar-collapse collapse d-sm-inline-flex col-5 d-flex justify-content-evenly ">
+                        <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark  " asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -54,9 +56,10 @@
                         }
                     </ul>
                 </div>
-                <a class="nav-link text-dark increased-space" asp-area="Customer" asp-controller="Cart" asp-action="Index"> @await Component.InvokeAsync("ShoppingCart")</a>
-                <partial name="_LoginPartial" class="d-none d-sm-flex align-items-center justify-content-end"/>
-
+                <div class="row d-flex col-4">
+                <a class="nav-link text-dark increased-space col-4" asp-area="Customer" asp-controller="Cart" asp-action="Index"> @await Component.InvokeAsync("ShoppingCart")</a>
+                <partial name="_LoginPartial" class="d-none d-sm-flex align-items-center col-6"/>
+                    </div>
             </div>
 
 
@@ -70,7 +73,9 @@
     </header>
 
     <div @* class="container" *@>
+
         @if (ViewData["Title"] != null)
+
         {
             if (!string.IsNullOrEmpty(ViewData["Title"].ToString()))
             {

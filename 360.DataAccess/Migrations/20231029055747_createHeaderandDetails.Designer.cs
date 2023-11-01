@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _360.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using _360.DataAccess.Data;
 namespace _360.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231029055747_createHeaderandDetails")]
+    partial class createHeaderandDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -254,52 +257,7 @@ namespace _360.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ChildrenNames", (string)null);
-                });
-
-            modelBuilder.Entity("_360.Models.ReceivedRequestDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ReceivedRequestDetails", (string)null);
-                });
-
-            modelBuilder.Entity("_360.Models.ReceivedRequestHeader", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("OrderId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrderStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Userid")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("requestDetails")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Userid");
-
-                    b.HasIndex("requestDetails");
-
-                    b.ToTable("receivedRequestHeaders", (string)null);
+                    b.ToTable("ChildrenNames");
                 });
 
             modelBuilder.Entity("_360.Models.ReceivedRequestDetails", b =>
@@ -397,7 +355,7 @@ namespace _360.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("serviceRequests", (string)null);
+                    b.ToTable("serviceRequests");
                 });
 
             modelBuilder.Entity("_360.Models.ServicesModel", b =>
@@ -433,7 +391,7 @@ namespace _360.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("services", (string)null);
+                    b.ToTable("services");
 
                     b.HasData(
                         new
@@ -444,9 +402,7 @@ namespace _360.DataAccess.Migrations
                             ServiceDescription = "Schedule dates for pickup for your children and we will be there to pick them Up",
                             ServiceName = "Child Pickup",
                             UpdatedBy = "Fikayo",
-
-                            UpdatedDate = new DateTime(2023, 10, 31, 14, 35, 18, 497, DateTimeKind.Local).AddTicks(6373),
-
+                            UpdatedDate = new DateTime(2023, 10, 28, 23, 57, 46, 392, DateTimeKind.Local).AddTicks(8575),
                             priceperkm = 0
                         });
                 });
