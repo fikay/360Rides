@@ -1,5 +1,4 @@
-﻿@model ServicesModel
-
+﻿@model ServicesAdminDTO
 
 
 
@@ -40,8 +39,8 @@
                 <input asp-for="Id" hidden />
                 <input asp-for="CreatedBy" hidden />
                 <input asp-for="UpdatedBy" hidden />
-                <input asp-for="UpdatedDate" hidden />
-                <input asp-for="CreatedDate" hidden />
+                <input type="datetime" asp-for="UpdatedDate" value="@DateTime.Now" hidden  />
+                
                 <div class="form-floating mb-3">
                     <input asp-for="ServiceName" class="form-control" autocomplete="servicename" aria-required="true"  />
                     <label asp-for="ServiceName">Service Name</label>

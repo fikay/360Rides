@@ -2,8 +2,10 @@
 using _360.DataAccess.Data;
 using _360.DataAccess.Repository.Irepository;
 using _360.Models;
+using _360.Models.DTO;
 using _360.Models.ViewModels;
 using _360.Utility;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -16,6 +18,7 @@ namespace _360Rides.Areas.Customer.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitofWorkRepository _unitOfWork;
+        private readonly IMapper _mapper;
         private readonly ApplicationDbContext _db;
         //[BindProperty]
         //private  RequestVM _requestVM {  get; set; }
@@ -25,13 +28,14 @@ namespace _360Rides.Areas.Customer.Controllers
         [BindProperty]
         private ServiceRequest serviceRequest { get; set; }
 
-        public HomeController(ILogger<HomeController> logger, IUnitofWorkRepository unitofWorkRepository, ApplicationDbContext db)
+        public HomeController(ILogger<HomeController> logger, IUnitofWorkRepository unitofWorkRepository, ApplicationDbContext db, IMapper mapper)
         {
             _logger = logger;
             _unitOfWork = unitofWorkRepository;
             _db = db;
+            _mapper = mapper;
         }
-
+      
         public IActionResult Index()
         {
 
@@ -41,29 +45,33 @@ namespace _360Rides.Areas.Customer.Controllers
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             List<ServicesModel> listOfServices = _unitOfWork.ServicesRepository.GetAllAsync().GetAwaiter().GetResult().ToList();
-            if(claim != null)
+            var servicesDto = _mapper.Map<IEnumerable<ServicesDTO>>(listOfServices);
+            if (claim != null)
             {
-                var inCart = _unitOfWork.RequestRepository.GetAllAsync(x => x.UserId == claim.Value).GetAwaiter().GetResult();
-                HttpContext.Session.SetInt32(SD.SessionName, inCart.Count());
+                var inCart = _unitOfWork.RequestRepository.GetAllAsync(x => x.UserId == claim.Value).GetAwaiter().GetResult().Count();
+                HttpContext.Session.SetInt32(SD.SessionName, inCart);
             }
-            
-            return View( listOfServices);
+
+
+            return View( servicesDto);
 
         }
 
         [Authorize(Roles = SD.Role_Customer + "," + SD.Role_Admin + "," + SD.Role_Employee)]
         public  IActionResult Details(int product)
         {
-
-            
-
             // Get ASPUSER ID and ServiceChosen 
             // Find the User and set the service Id And User Id to the respective field in service request
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             var serviceChosen = _unitOfWork.ServicesRepository.GetAsync( filter:x => x.Id == product).GetAwaiter().GetResult();
             var user = _db.Users.FirstOrDefault(x => x.Id == userId) as ApplicationUser;
-            ServiceRequest request = new() {
+            //ServiceRequest request = new() {
+            //    ServiceId = serviceChosen.Id,
+            //    UserId = user.Id,
+            //};
+            ServiceRequestDTO request = new()
+            {
                 ServiceId = serviceChosen.Id,
                 UserId = user.Id,
             };
@@ -86,21 +94,23 @@ namespace _360Rides.Areas.Customer.Controllers
         }
         [Authorize(Roles = SD.Role_Customer + "," + SD.Role_Admin + "," + SD.Role_Employee)]
         [HttpPost]
-        public  IActionResult Details(ServiceRequest request)
+        public  IActionResult Details(ServiceRequestDTO request)
         {
+
+            var serviceRequest = _mapper.Map<ServiceRequest>(request);
             var user = _db.Users.FirstOrDefault(x => x.Id == request.UserId);
-            foreach (var child in request.childrenNames)
+            foreach (var child in serviceRequest.childrenNames)
             {
-                    child.UserId = user.Id;
+                child.UserId = user.Id;
             }
             if (ModelState.IsValid)
             {
-                _unitOfWork.ChildrenRepository.AddRangeAsync(request.childrenNames).GetAwaiter().GetResult();
-                _unitOfWork.RequestRepository.AddAsync(request).GetAwaiter().GetResult();
+                _unitOfWork.ChildrenRepository.AddRangeAsync(serviceRequest.childrenNames).GetAwaiter().GetResult();
+                _unitOfWork.RequestRepository.AddAsync(serviceRequest).GetAwaiter().GetResult();
                 _unitOfWork.save();
             }
-            var servicerequest = _unitOfWork.RequestRepository.GetAllAsync(x => x.UserId == user.Id).GetAwaiter().GetResult();
-            HttpContext.Session.SetInt32(SD.SessionName, servicerequest.Count());
+            var servicerequest1 = _unitOfWork.RequestRepository.GetAllAsync(x => x.UserId == user.Id).GetAwaiter().GetResult().Count();
+            HttpContext.Session.SetInt32(SD.SessionName, servicerequest1);
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Privacy()

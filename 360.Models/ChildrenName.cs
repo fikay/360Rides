@@ -23,5 +23,7 @@ namespace _360.Models
 
         [Required]
         public string Name { get; set; }
+
+        
     }
 }

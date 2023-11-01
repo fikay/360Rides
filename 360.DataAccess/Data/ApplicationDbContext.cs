@@ -36,7 +36,8 @@ namespace _360.DataAccess.Data
                 ServiceDescription = "Schedule dates for pickup for your children and we will be there to pick them Up",
                 UpdatedBy = "Fikayo",
                 UpdatedDate = DateTime.Now,
-                CreatedBy = "Fikayo"
+                CreatedBy = "Fikayo",
+                CreatedDate = DateTime.Now,
             });
 
 

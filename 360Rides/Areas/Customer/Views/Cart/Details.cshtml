@@ -1,4 +1,4 @@
-﻿@model ServiceRequest
+﻿@model ServiceRequestDTO
 @{
     var count = 0;
     string inputDateTime = Model.StartDate.ToString();
@@ -16,24 +16,23 @@
 <div class="row">
     <form method="post" class="col-11 my-2" id="myForm">
         <div class="row col-12">
-            <input asp-for="User" hidden />
+            @* <input asp-for="User" hidden /> *@
             <input asp-for="Id" hidden />
-            <input asp-for="UserId" hidden />
-            <input asp-for="Service" hidden />
+            <input asp-for="UserId" hidden />      
             <input asp-for="ServiceId" hidden />
-            @if (@Model.childrenNames != null)
+            @if (@Model.childrenName != null)
             {
-                @foreach (var child in Model.childrenNames)
+                @foreach (var child in Model.childrenName)
                 {
 
-                    <label asp-for="@Model.childrenNames" class="form-label"></label>
+                    <label asp-for="@Model.childrenName" class="form-label"></label>
                     <div class="row col-5 input-group mb-3">
-                        <input type="text" hidden asp-for="childrenNames[count].Id" />
-                        <input type="text" asp-for="childrenNames[count].Name" class="form-control col-4 names" id="autocomplete" aria-describedby="ChildrenNumber" value="@child.Name" />
-                        <a asp-controller="Cart" asp-action="removeChild" asp-route-id="@child.Id" asp-route-serviceId="@Model.Id" class="col-3 btn btn-danger input-group-text"><i class="bi bi-trash3-fill"></i></a>
+                        @* <input type="text" hidden asp-for="childrenName[count]" /> *@
+                        <input type="text" asp-for="childrenName" class="form-control col-4 names" id="autocomplete" aria-describedby="ChildrenNumber" value="@child" />
+                        <a asp-controller="Cart" asp-action="removeChild" asp-route-Name ="@child"  asp-route-requestId="@Model.Id" class="col-3 btn btn-danger input-group-text"><i class="bi bi-trash3-fill"></i></a>
                     </div>
 
-                    <span asp-validation-for="@Model.childrenNames" class="text-danger"></span>
+                    <span asp-validation-for="@Model.childrenName" class="text-danger"></span>
                   count++;
                 }
             }
@@ -94,7 +93,7 @@
 
 @section Scripts{
     <script>
-        var childIndex = @Model.childrenNumber;
+        var childIndex = @Model.childrenNumber+1;
         $("#addChildButton").click(function () {
 
             var newDiv = $('<div>').addClass('child-container my-3');
@@ -102,7 +101,7 @@
             var inputContainer = $('<div>').addClass(' col-6 input-container d-flex align-items-end names');
             var newInput = $('<input>').attr('type', 'text').addClass('form-control new-input col-4');
             // Set the name attribute manually to bind to ChildNames[childIndex]
-            newInput.attr('name', 'childrenNames[' + childIndex + '].Name');
+            newInput.attr('name', 'childrenName');
             //Create Delete Button
             var deleteButton = $('<button>').text('Delete').addClass('btn btn-danger delete-button ');
             deleteButton.click(function () {
