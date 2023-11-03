@@ -41,7 +41,8 @@ namespace _360Rides.Areas.Customer.Controllers
 
            var cart =  _unitofWork.RequestRepository.GetAllAsync(x=>x.UserId == userId, includeProperties: "Service").GetAwaiter().GetResult();
             var cartdto = _mapper.Map<IEnumerable<CartDTO>>(cart);
-            ViewBag.itemCount = HttpContext.Session.GetInt32(SD.SessionName);
+            var itemCount = cartdto.Count();
+            ViewBag.itemCount = itemCount;
             
             return View(cartdto);
         }
@@ -70,7 +71,7 @@ namespace _360Rides.Areas.Customer.Controllers
             var CustomerNames = _unitofWork.ChildrenRepository.GetAllAsync(x => x.UserId == userId).GetAwaiter().GetResult();
             List<ChildrenDb> children = CustomerNames.Select(x => new ChildrenDb { ChildName = x.Name, UserId = x.UserId }).ToList();
             _unitofWork.StoredChildrenRepository.AddRangeAsync(children);
-            _unitofWork.ChildrenRepository.DeleteRange(CustomerNames);
+            
            
 
 

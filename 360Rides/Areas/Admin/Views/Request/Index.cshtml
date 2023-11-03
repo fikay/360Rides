@@ -1,0 +1,73 @@
+﻿@model AdminRequestDTO
+@{
+    var status = Context.Request.Query["status"];
+    var pending = "text-primary";
+    var inprocess = "text-primary";
+    var Approved = "text-primary";
+    var declined = "text-primary";
+    var All = "text-primary";
+
+    switch (status)
+    {
+        case "Pending":
+            pending = "active text-white bg-primary";
+            break;
+        case "inprocess":
+            inprocess = "active text-white bg-primary";
+            break;
+        case "Completed":
+            declined = "active text-white bg-primary";
+            break;
+        case "Approved":
+            Approved = "active text-white bg-primary";
+            break;
+        default:
+            All = "active text-white bg-primary";
+            break;
+
+    }
+}
+<div class="row">
+    <div class="col-12 d-flex justify-content-between pb-5 pt-2">
+        <span></span>
+        <ul class="list-group list-group-horizontal-sm">
+            <a class="filter" style="text-decoration:none;" asp-controller="Request" asp-action="Index" asp-route-status="inprocess">
+            <li class="list-group-item @inprocess">In Process</li>
+            </a>
+            <a class="filter" style="text-decoration:none;" asp-controller="Request" asp-action="Index" asp-route-status="Pending">
+            <li class="list-group-item @pending">Payment Pending</li>
+            </a>
+            <a class="filter" style="text-decoration:none;" asp-controller="Request" asp-action="Index" asp-route-status="Completed">
+            <li class="list-group-item @declined">Completed</li>
+            </a>
+            <a class="filter" style="text-decoration:none;" asp-controller="Request" asp-action="Index" asp-route-status="Approved">
+            <li class="list-group-item @Approved">Approved</li>
+            </a>
+            <a class="filter" style="text-decoration:none;" asp-controller="Request" asp-action="Index" asp-route-status="All">
+            <li class="list-group-item @All">All</li>
+            </a>
+        </ul>
+    </div>
+    <div class="row">
+        <table id="myTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Order Id</th>
+                    <th>Order Status</th>
+                    <th>Requester Name</th>
+                    <th>Requester Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/requests.js"></script>
+
+}

@@ -30,7 +30,11 @@ namespace _360.Utility
             CreateMap<ServiceRequest, SentRequestDTO>();
             CreateMap<SentRequestDTO, ReceivedRequestDetails>();
 
-           
+            CreateMap<ReceivedRequestHeader, AdminRequestDTO>()
+                .ForMember(dest => dest.RequesterName, opt => opt.MapFrom(src => src.user.Name))
+                .ForMember(dest => dest.RequesterEmail, opt => opt.MapFrom(src => src.user.Email));
+
+            CreateMap<ReceivedRequestDetails, AdminRequestDetailsDTO>();
         }
     }
 }

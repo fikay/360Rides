@@ -1,0 +1,70 @@
+﻿@model OrderVM
+<form method="post">
+    <div class="row">
+        <div class="col-4 row my-2">
+            <input asp-for="ReceivedRequestHeader.id" hidden  />
+            <div class="col-12">
+                <input class="form-control" asp-for="ReceivedRequestHeader.RequesterEmail"  disabled />
+            </div>
+            <div class="col-12">
+                <input class="form-control" asp-for="ReceivedRequestHeader.RequesterName" disabled />
+            </div>
+            <div class="col-12">
+                <input class="form-control" asp-for="ReceivedRequestHeader.orderId" disabled />
+            </div>
+            <div class="col-12">
+                <select asp-for="ReceivedRequestHeader.orderStatus" asp-items="@Model.selectListItems">
+
+                </select>
+            </div>
+        </div>
+        <div class="col-4 row">
+            <div class="col-12" >
+                <div>
+                    <label asp-for="ReceivedRequestDetails.PickUpLocation" class="form-label"></label>
+                    <input type="text" asp-for="ReceivedRequestDetails.PickUpLocation" class="form-control" id="autocomplete" aria-describedby="ChildrenNumber" disabled />
+                    <span asp-validation-for="ReceivedRequestDetails.PickUpLocation" class="text-danger"></span>
+                </div>
+                <div>
+                    <label asp-for="ReceivedRequestDetails.DropOffLocation" class="form-label"></label>
+                    <input type="text" asp-for="ReceivedRequestDetails.DropOffLocation" class="form-control" id="autocomplete1" aria-describedby="ChildrenNumber" disabled />
+                    <span asp-validation-for="ReceivedRequestDetails.DropOffLocation" class="text-danger"></span>
+                </div>
+            </div>
+            <div class=" row col-12 col-sm-12 d-flex justify-content-start align-items-end my-1">
+                <div class="col-6 col-sm-6  my-1">
+                    <label asp-for="ReceivedRequestDetails.StartDate" class="form-label"></label>
+                    <input type="datetime-local" asp-for="ReceivedRequestDetails.StartDate" class="form-control date" aria-describedby="ChildrenNumber" />
+                    <span asp-validation-for="ReceivedRequestDetails.StartDate" class="text-danger"></span>
+                </div>
+                <div class="col-6 col-sm-6 my-1">
+                    <label asp-for="ReceivedRequestDetails.EndDate" class="form-label"></label>
+                    <input type="datetime-local" asp-for="ReceivedRequestDetails.EndDate" class="form-control date" aria-describedby="ChildrenNumber" />
+                    <span asp-validation-for="ReceivedRequestDetails.EndDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-12 my-3">
+                <label asp-for="ReceivedRequestDetails.additionalComments" class="form-label"></label>
+                <textArea id="textArea" asp-for="ReceivedRequestDetails.additionalComments" class="form-control" placeholder="We Understand parents do not require the service everyday of the week. You can include the days when the service is not required in here or any thing you would like us to know. If nothing put N/A" aria-describedby="ChildrenNumber"></textArea>
+                <span asp-validation-for="ReceivedRequestDetails.additionalComments" class="text-danger"></span>
+            </div>
+            <div class=" row col-12 my-3">
+                <div class="col-6">
+                    <label asp-for="ReceivedRequestDetails.childrenNumber" class="form-label"></label>
+                    <input type="number" asp-for="ReceivedRequestDetails.childrenNumber" class="form-control" id="ChildrenNumber" aria-describedby="ChildrenNumber" />
+                    <span asp-validation-for="ReceivedRequestDetails.childrenNumber" class="text-danger"></span>
+                </div>
+                <div class="col-6">
+                    <label asp-for="ReceivedRequestDetails.price" class="form-label"></label>
+                    <input type="number" asp-for="ReceivedRequestDetails.price" class="form-control" id="ChildrenNumber" aria-describedby="ChildrenNumber" />
+                    <span asp-validation-for="ReceivedRequestDetails.price" class="text-danger"></span>
+                </div>
+                
+            </div>
+
+        </div>
+        <div class="col-4">
+        </div>
+    </div>
+</form>
+
