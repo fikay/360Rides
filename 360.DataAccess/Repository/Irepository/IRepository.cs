@@ -28,5 +28,7 @@ namespace _360.DataAccess.Repository.Irepository
         // An object of type T will be deleted from the table.
         // Parameters: Variable of type T
         void Delete(T item);
+
+        Task DeleteRange(IEnumerable<T> entities);
     }
 }

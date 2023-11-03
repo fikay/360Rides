@@ -20,6 +20,7 @@ namespace _360Rides.Areas.Customer.Controllers
     public class CartController : Controller
     {
         private readonly IUnitofWorkRepository _unitofWork;
+       
 
         private readonly IMapper _mapper;
 
@@ -47,10 +48,51 @@ namespace _360Rides.Areas.Customer.Controllers
         [HttpPost, ActionName("Index")]
         public IActionResult sendRequest()
         {
+            var claimIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            return View();
+            var requests = _unitofWork.RequestRepository.GetAllAsync(x => x.UserId == userId,includeProperties: "childrenNames").GetAwaiter().GetResult();
+            var details = _mapper.Map<List<SentRequestDTO>>(requests);
+            
+            var header = _mapper.Map<List<ReceivedRequestDetails>>(details);  
+           string guid = Guid.NewGuid().ToString();
+            ReceivedRequestHeader receivedRequestHeader = new ReceivedRequestHeader() 
+            {
+                Userid = userId,
+                OrderId =guid,
+                OrderStatus = SD.Pending_status,
+                details = header
+            };
+            _unitofWork.ReceivedRequestHeader.AddAsync(receivedRequestHeader);
+
+            var requestToDelete = _unitofWork.RequestRepository.GetAllAsync(x => x.UserId == userId).GetAwaiter().GetResult();
+            _unitofWork.RequestRepository.DeleteRange(requestToDelete);
+            var CustomerNames = _unitofWork.ChildrenRepository.GetAllAsync(x => x.UserId == userId).GetAwaiter().GetResult();
+            List<ChildrenDb> children = CustomerNames.Select(x => new ChildrenDb { ChildName = x.Name, UserId = x.UserId }).ToList();
+            _unitofWork.StoredChildrenRepository.AddRangeAsync(children);
+            _unitofWork.ChildrenRepository.DeleteRange(CustomerNames);
+           
+
+
+            _unitofWork.save();
+
+            var ConfirmationId = _unitofWork.ReceivedRequestHeader.GetAsync(x => x.OrderId == guid).GetAwaiter().GetResult().OrderId;
+
+
+            return RedirectToAction(nameof(ConfirmationPage), new { id = ConfirmationId });
         }
 
+
+        public IActionResult ConfirmationPage(string id )
+        {
+            ViewData["Title"] = "Confirmation Page";
+            var claimIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var count = _unitofWork.RequestRepository.GetAllAsync(X => X.UserId == userId).GetAwaiter().GetResult().Count();
+            HttpContext.Session.SetInt32(SD.SessionName, count);
+            ViewBag.Id = id;    
+            return View();
+        }
 
         public IActionResult Details(int requestId)
         {
@@ -60,8 +102,6 @@ namespace _360Rides.Areas.Customer.Controllers
             var request = _mapper.Map<ServiceRequestDTO>(requestFound);
             request.Id = requestId;
             
-
-
             return View(request);
         }
         [HttpPost]

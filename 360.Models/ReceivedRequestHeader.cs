@@ -22,8 +22,6 @@ namespace _360.Models
 
         public string OrderStatus { get; set; }
 
-        public int requestDetails {  get; set; }
-        [ForeignKey("requestDetails")]
-        public ReceivedRequestDetails details { get; set; }
+        public  List< ReceivedRequestDetails> details { get; set; }
     }
 }

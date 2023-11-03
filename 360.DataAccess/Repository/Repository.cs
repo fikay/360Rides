@@ -92,5 +92,10 @@ namespace _360.DataAccess.Repository
             }
           return Task.FromResult(flag);
         }
+
+        public async Task DeleteRange(IEnumerable<T> entities)
+        {
+            dbSet.RemoveRange(entities);
+        }
     }
 }

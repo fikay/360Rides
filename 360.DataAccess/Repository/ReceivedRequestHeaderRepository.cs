@@ -21,5 +21,10 @@ namespace _360.DataAccess.Repository
         {
             _db.Update(Item);
         }
+
+        public void save()
+        {
+            _db.SaveChanges();
+        }
     }
 }

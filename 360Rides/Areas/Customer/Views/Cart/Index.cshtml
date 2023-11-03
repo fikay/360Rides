@@ -1,5 +1,4 @@
-
-﻿@model IEnumerable<CartDTO>
+@model IEnumerable<CartDTO>
 
 
 
@@ -19,7 +18,7 @@
     <div class="col-12 text-center">
     </div>
     <div class="col-11 border my-2 bordered-form">
-        <form >
+        <form method="post" >
             @foreach(var service in Model)
             {
                 <div class="row my-4">

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _360.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using _360.DataAccess.Data;
 namespace _360.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231102053236_replicateModels")]
+    partial class replicateModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,27 +232,6 @@ namespace _360.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("_360.Models.ChildrenDb", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ChildName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("children");
-                });
-
             modelBuilder.Entity("_360.Models.ChildrenName", b =>
                 {
                     b.Property<int>("Id")
@@ -445,11 +427,11 @@ namespace _360.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Fikayo",
-                            CreatedDate = new DateTime(2023, 11, 3, 6, 27, 57, 528, DateTimeKind.Local).AddTicks(4895),
+                            CreatedDate = new DateTime(2023, 11, 1, 23, 32, 35, 919, DateTimeKind.Local).AddTicks(6703),
                             ServiceDescription = "Schedule dates for pickup for your children and we will be there to pick them Up",
                             ServiceName = "Child Pickup",
                             UpdatedBy = "Fikayo",
-                            UpdatedDate = new DateTime(2023, 11, 3, 6, 27, 57, 528, DateTimeKind.Local).AddTicks(4873),
+                            UpdatedDate = new DateTime(2023, 11, 1, 23, 32, 35, 919, DateTimeKind.Local).AddTicks(6693),
                             priceperkm = 0
                         });
                 });

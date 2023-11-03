@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace _360.DataAccess.Repository.Irepository
 {
-    public interface IReceivedRequestHeader : IRepository<ReceivedRequestHeader> 
+    public interface IStoredChildrenRepository : IRepository<ChildrenDb>
     {
-        void update(ReceivedRequestHeader Item);
-
-        void save();
+        void update(ChildrenDb Item);
     }
 }

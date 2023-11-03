@@ -12,8 +12,8 @@ using _360.DataAccess.Data;
 namespace _360.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231031203519_headers")]
-    partial class headers
+    [Migration("20231102205306_headers1")]
+    partial class headers1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -244,6 +244,9 @@ namespace _360.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ReceivedRequestDetailsId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ServiceRequestId")
                         .HasColumnType("int");
 
@@ -252,6 +255,8 @@ namespace _360.DataAccess.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ReceivedRequestDetailsId");
 
                     b.HasIndex("ServiceRequestId");
 
@@ -268,7 +273,41 @@ namespace _360.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("DropOffLocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("OrderheaderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PickUpLocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("additionalComments")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("childrenNumber")
+                        .HasColumnType("int");
+
+                    b.Property<double>("price")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderheaderId");
+
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("ReceivedRequestDetails");
                 });
@@ -293,14 +332,9 @@ namespace _360.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("requestDetails")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Userid");
-
-                    b.HasIndex("requestDetails");
 
                     b.ToTable("receivedRequestHeaders");
                 });
@@ -324,9 +358,6 @@ namespace _360.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ReceivedRequestDetailsId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
 
@@ -348,8 +379,6 @@ namespace _360.DataAccess.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ReceivedRequestDetailsId");
 
                     b.HasIndex("ServiceId");
 
@@ -398,11 +427,11 @@ namespace _360.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Fikayo",
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(2023, 11, 2, 14, 53, 5, 817, DateTimeKind.Local).AddTicks(8474),
                             ServiceDescription = "Schedule dates for pickup for your children and we will be there to pick them Up",
                             ServiceName = "Child Pickup",
                             UpdatedBy = "Fikayo",
-                            UpdatedDate = new DateTime(2023, 10, 31, 14, 35, 18, 497, DateTimeKind.Local).AddTicks(6373),
+                            UpdatedDate = new DateTime(2023, 11, 2, 14, 53, 5, 817, DateTimeKind.Local).AddTicks(8463),
                             priceperkm = 0
                         });
                 });
@@ -487,6 +516,10 @@ namespace _360.DataAccess.Migrations
 
             modelBuilder.Entity("_360.Models.ChildrenName", b =>
                 {
+                    b.HasOne("_360.Models.ReceivedRequestDetails", null)
+                        .WithMany("childrenNames")
+                        .HasForeignKey("ReceivedRequestDetailsId");
+
                     b.HasOne("_360.Models.ServiceRequest", null)
                         .WithMany("childrenNames")
                         .HasForeignKey("ServiceRequestId");
@@ -500,6 +533,25 @@ namespace _360.DataAccess.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("_360.Models.ReceivedRequestDetails", b =>
+                {
+                    b.HasOne("_360.Models.ReceivedRequestHeader", "ReceivedRequestHeader")
+                        .WithMany("details")
+                        .HasForeignKey("OrderheaderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("_360.Models.ServicesModel", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ReceivedRequestHeader");
+
+                    b.Navigation("Service");
+                });
+
             modelBuilder.Entity("_360.Models.ReceivedRequestHeader", b =>
                 {
                     b.HasOne("_360.Models.ApplicationUser", "user")
@@ -508,23 +560,11 @@ namespace _360.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("_360.Models.ReceivedRequestDetails", "details")
-                        .WithMany()
-                        .HasForeignKey("requestDetails")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("details");
-
                     b.Navigation("user");
                 });
 
             modelBuilder.Entity("_360.Models.ServiceRequest", b =>
                 {
-                    b.HasOne("_360.Models.ReceivedRequestDetails", null)
-                        .WithMany("ServiceRequests")
-                        .HasForeignKey("ReceivedRequestDetailsId");
-
                     b.HasOne("_360.Models.ServicesModel", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
@@ -544,7 +584,12 @@ namespace _360.DataAccess.Migrations
 
             modelBuilder.Entity("_360.Models.ReceivedRequestDetails", b =>
                 {
-                    b.Navigation("ServiceRequests");
+                    b.Navigation("childrenNames");
+                });
+
+            modelBuilder.Entity("_360.Models.ReceivedRequestHeader", b =>
+                {
+                    b.Navigation("details");
                 });
 
             modelBuilder.Entity("_360.Models.ServiceRequest", b =>

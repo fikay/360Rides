@@ -22,7 +22,15 @@ namespace _360.Utility
             // ServiceRequestDTO to ServiceRequest
             CreateMap<ServiceRequestDTO, ServiceRequest>()
                 .ForMember(dest => dest.childrenNames, opt => opt.MapFrom(src => src.childrenName.Select(cn => new ChildrenName { Name = cn }).ToList()));
-               
+
+            //CreateMap<ServiceRequest, ReceivedRequestDetails>();/*.ForMember(dest => dest.OrderheaderId, opt =>opt.MapFrom(src => 0)).ForMember(dest => dest.ReceivedRequestHeader, opt => opt.MapFrom(src => ""));*/
+            //CreateMap<ReceivedRequestDetails, ServiceRequest>();/*.ForMember(dest => dest.UserId, opt => opt.MapFrom(src => 0)).ForMember(dest => dest.User, opt => opt.MapFrom(src => "")); ;*/
+            //CreateMap<List<ServiceRequest>,List<ReceivedRequestDetails>>();
+
+            CreateMap<ServiceRequest, SentRequestDTO>();
+            CreateMap<SentRequestDTO, ReceivedRequestDetails>();
+
+           
         }
     }
 }
