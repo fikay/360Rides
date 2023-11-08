@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace _360.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class headers : Migration
+    public partial class models : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -289,7 +289,7 @@ namespace _360.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "services",
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "ServiceDescription", "ServiceName", "UpdatedBy", "UpdatedDate", "priceperkm" },
-                values: new object[] { 1, "Fikayo", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Schedule dates for pickup for your children and we will be there to pick them Up", "Child Pickup", "Fikayo", new DateTime(2023, 10, 31, 14, 35, 18, 497, DateTimeKind.Local).AddTicks(6373), 0 });
+                values: new object[] { 1, "Fikayo", new DateTime(2023, 11, 4, 23, 14, 45, 359, DateTimeKind.Local).AddTicks(1918), "Schedule dates for pickup for your children and we will be there to pick them Up", "Child Pickup", "Fikayo", new DateTime(2023, 11, 4, 23, 14, 45, 359, DateTimeKind.Local).AddTicks(1910), 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

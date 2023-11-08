@@ -1,11 +1,14 @@
 ﻿
 @model List<ServicesDTO>
+@section Styles{
+    <link rel="stylesheet" href="~/css/Customerhomepage.css" asp-append-version="true" />
+} 
 <br />
 <br />
 <div class=" row text-center justify-content-evenly">
     @foreach(var service in Model)
     {
-        <div class="card col-4 mx-2 my-2" style="width: 18rem;">
+        <div class="card col-4 mx-2 my-2 service-card" style="width: 18rem;">
             <img src="~/Images/bus.jpg" class="card-img-top my-2 rounded" alt="...">
             <div class="card-body">
                 <h5 class="card-title">@service.ServiceName</h5>
@@ -28,3 +31,4 @@
     }
 
 </div>
+
