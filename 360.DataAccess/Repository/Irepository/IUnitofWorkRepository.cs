@@ -13,7 +13,7 @@ namespace _360.DataAccess.Repository.Irepository
         IChildrenRepository ChildrenRepository { get; }
         IReceivedRequestHeader ReceivedRequestHeader { get; }
         IReceivedRequestDetails ReceivedRequestDetails { get; }
-
+        IEmployeeRepository EmployeesRepository { get; }
         IStoredChildrenRepository StoredChildrenRepository { get; }
         void save();
         void EntityAdd<T>(T item) where T : class;

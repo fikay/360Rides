@@ -9,7 +9,7 @@ function loadDataTable() {
 
         ajax: {
             url: '/Admin/Services/GetAll',
-            dataSrc: 'adminServices'
+            dataSrc: 'services'
         },
         columns: [
 

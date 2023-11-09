@@ -27,6 +27,8 @@ namespace _360.DataAccess.Data
         public DbSet<ReceivedRequestDetails> ReceivedRequestDetails { get; set; }
 
         public DbSet<ChildrenDb> children {  get; set; }
+
+        public DbSet<Employees> Employees { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

@@ -51,5 +51,7 @@ namespace _360.Models
         public string additionalComments { get; set; }
         public double price { get; set; }
 
+        public Guid driverId { get; set; }
+
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _360.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using _360.DataAccess.Data;
 namespace _360.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231105032813_Employees")]
+    partial class Employees
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -293,12 +296,6 @@ namespace _360.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -318,12 +315,6 @@ namespace _360.DataAccess.Migrations
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UpdatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -495,11 +486,11 @@ namespace _360.DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Fikayo",
-                            CreatedDate = new DateTime(2023, 11, 8, 20, 26, 26, 639, DateTimeKind.Local).AddTicks(2569),
+                            CreatedDate = new DateTime(2023, 11, 4, 21, 28, 11, 600, DateTimeKind.Local).AddTicks(3629),
                             ServiceDescription = "Schedule dates for pickup for your children and we will be there to pick them Up",
                             ServiceName = "Child Pickup",
                             UpdatedBy = "Fikayo",
-                            UpdatedDate = new DateTime(2023, 11, 8, 20, 26, 26, 639, DateTimeKind.Local).AddTicks(2557),
+                            UpdatedDate = new DateTime(2023, 11, 4, 21, 28, 11, 600, DateTimeKind.Local).AddTicks(2769),
                             priceperkm = 0
                         });
                 });

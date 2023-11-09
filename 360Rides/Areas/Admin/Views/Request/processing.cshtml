@@ -1,4 +1,20 @@
 ﻿@model OrderVM
+
+@{
+    string inputDateTime = Model.ReceivedRequestDetails.StartDate.ToString();
+    DateTime parsedDateTime = DateTime.ParseExact(inputDateTime, "yyyy-MM-dd h:mm:ss tt", CultureInfo.InvariantCulture);
+
+    // Format the parsed date-time as "yyyy-MM-ddTHH:mm"
+    string formattedDateTime = parsedDateTime.ToString("yyyy-MM-ddTHH:mm");
+
+
+    string inputDateTime1 = Model.ReceivedRequestDetails.EndDate.ToString();
+    DateTime parsedDateTime1 = DateTime.ParseExact(inputDateTime1, "yyyy-MM-dd h:mm:ss tt", CultureInfo.InvariantCulture);
+
+    // Format the parsed date-time as "yyyy-MM-ddTHH:mm"
+    string formattedDateTime1 = parsedDateTime1.ToString("yyyy-MM-ddTHH:mm");
+
+}
 <form method="post">
     <div class="row">
         <div class="col-4 row my-2">
@@ -34,12 +50,12 @@
             <div class=" row col-12 col-sm-12 d-flex justify-content-start align-items-end my-1">
                 <div class="col-6 col-sm-6  my-1">
                     <label asp-for="ReceivedRequestDetails.StartDate" class="form-label"></label>
-                    <input type="datetime-local" asp-for="ReceivedRequestDetails.StartDate" class="form-control date" aria-describedby="ChildrenNumber" />
+                    <input type="datetime" asp-for="ReceivedRequestDetails.StartDate" class="form-control date" aria-describedby="ChildrenNumber" value="@formattedDateTime"/>
                     <span asp-validation-for="ReceivedRequestDetails.StartDate" class="text-danger"></span>
                 </div>
                 <div class="col-6 col-sm-6 my-1">
                     <label asp-for="ReceivedRequestDetails.EndDate" class="form-label"></label>
-                    <input type="datetime-local" asp-for="ReceivedRequestDetails.EndDate" class="form-control date" aria-describedby="ChildrenNumber" />
+                    <input type="datetime" asp-for="ReceivedRequestDetails.EndDate" class="form-control date" aria-describedby="ChildrenNumber"  value="@formattedDateTime1"/>
                     <span asp-validation-for="ReceivedRequestDetails.EndDate" class="text-danger"></span>
                 </div>
             </div>
@@ -64,6 +80,7 @@
 
         </div>
         <div class="col-4">
+            <button type="button" class="btn btn-primary">Save Edit</button>
         </div>
     </div>
 </form>

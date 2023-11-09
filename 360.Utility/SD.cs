@@ -21,6 +21,11 @@ namespace _360.Utility
         public const string Declined_status = "Declined";
 
 
+        public const string Employee_Driver = "Driver";
+        public const string Employee_Transactions = "Transactions";
+        public const string Employee_Design = "Design";
+        public const string Employee_Admin = "Admin";
+
         public const string SessionName = "360Rides";
     }
 }

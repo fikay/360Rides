@@ -22,6 +22,7 @@ namespace _360.DataAccess.Repository
         public IReceivedRequestDetails ReceivedRequestDetails { get; private set; }
 
         public IStoredChildrenRepository StoredChildrenRepository { get; private set; }
+        public IEmployeeRepository EmployeesRepository { get; private set; }
         public UnitofWork (ApplicationDbContext db)
         {
             _db = db;
@@ -31,6 +32,7 @@ namespace _360.DataAccess.Repository
             ReceivedRequestHeader = new ReceivedRequestHeaderRepository(_db);
             ReceivedRequestDetails = new ReceivedRequestDetailsRepository(_db);
             StoredChildrenRepository = new SavedChildrenRepository(_db);
+            EmployeesRepository = new EmployeeRepository(_db);
         }
 
         public void save()

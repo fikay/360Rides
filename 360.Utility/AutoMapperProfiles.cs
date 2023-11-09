@@ -35,6 +35,8 @@ namespace _360.Utility
                 .ForMember(dest => dest.RequesterEmail, opt => opt.MapFrom(src => src.user.Email));
 
             CreateMap<ReceivedRequestDetails, AdminRequestDetailsDTO>();
+            CreateMap<Employees, EmployeeDTO>();
+            CreateMap< EmployeeDTO, Employees >();
         }
     }
 }
